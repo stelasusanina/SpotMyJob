@@ -1,0 +1,15 @@
+.search-section {
+    height: 400px; 
+    background-image: linear-gradient(
+        to top, 
+        rgba(162, 4, 253, 0.7), 
+        rgba(250, 197, 7, 0.7)
+    ), 
+    url("../photos/people-working.jpg"); 
+    background-size: cover; 
+    background-position: 75% 20%;
+}
+
+.container {
+    position: relative;
+}
