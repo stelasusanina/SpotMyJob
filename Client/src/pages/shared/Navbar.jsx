@@ -1,8 +1,8 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import "./Header.css";
+import "./Navbar.css";
 
-export default function Layout() {
+export default function Navbar() {
     return (
         <div>
             <nav className="nav-bar">
