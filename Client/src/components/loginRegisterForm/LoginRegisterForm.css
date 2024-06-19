@@ -1,0 +1,60 @@
+.register-login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.register-login{
+    height: 350px; 
+    background-image: linear-gradient(
+        to top, 
+        rgba(162, 4, 253, 0.7), 
+        rgba(250, 197, 7, 0.7)
+    );
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+input{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-color: rgba(255, 255, 255, 0.4);
+    border: none;
+    border-radius: 12px;
+    margin-bottom: 23px;
+    height: 28px;
+    padding-left: 10px;
+    color: white;
+}
+
+input:focus{
+    outline: none;
+}
+
+input::placeholder{
+    color: white;
+}
+
+h1{
+    text-align: center;
+    color: white;
+}
+
+.register-login button{
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    color: #a204fd;
+    cursor: pointer;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

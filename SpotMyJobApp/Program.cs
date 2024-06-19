@@ -1,16 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SpotMyJobApp.Data;
 using SpotMyJobApp.Data.Models;
+using SpotMyJobApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var CLIENT_CORS_POLICY_NAME = "CLIENT_CORS_POLICY";
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -30,7 +27,6 @@ builder.Services.ConfigureApplicationCookie(options =>
 	options.SlidingExpiration = true;
 });
 
-// Add CORS
 builder.Services.AddCors(options =>
 {
 	options.AddPolicy(CLIENT_CORS_POLICY_NAME,
@@ -43,12 +39,10 @@ builder.Services.AddCors(options =>
 		});
 });
 
-builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
 	app.UseSwagger();
@@ -56,13 +50,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthentication();
-
 app.UseAuthorization();
+app.UseCors(CLIENT_CORS_POLICY_NAME);
 
 app.MapControllers();
-
-app.UseCors(CLIENT_CORS_POLICY_NAME);
 
 app.Run();

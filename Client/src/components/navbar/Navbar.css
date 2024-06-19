@@ -1,5 +1,45 @@
-.nav-bar ul li{
+.nav-bar ul {
+    padding: 0;
+    margin-left: 10px;
+}
+
+.nav-bar ul li {
     list-style: none;
     display: inline-block;
     margin-right: 20px;
+}
+
+.nav-bar ul li a {
+    text-decoration: none;
+    color: black;
+    position: relative; 
+}
+
+.logo {
+    height: 70px;
+    margin: 10px 0;
+}
+
+.nav-bar {
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar-container {
+    display: flex;
+    align-self: flex-start;
+    width: 100%;
+    box-shadow: 0 2px 2px 0.2px rgba(162, 4, 253, 0.3);
+    margin-bottom: 20px;
+}
+
+.active::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #a204fd;
+    position: absolute;
+    bottom: -2px; 
+    left: 0;
 }
