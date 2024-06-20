@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SpotMyJobApp.Data.Models;
+using SpotMyJobApp.Services.Contracts;
 using SpotMyJobApp.Services.Dtos;
 
 namespace SpotMyJobApp.Controllers
@@ -10,20 +11,16 @@ namespace SpotMyJobApp.Controllers
 	[ApiController]
 	public class AuthController : ControllerBase
 	{
-		private readonly UserManager<ApplicationUser> userManager;
-		private readonly SignInManager<ApplicationUser> signInManager;
-
-		public AuthController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+		private readonly IAuthService authService;
+		public AuthController(IAuthService authService)
 		{
-			this.userManager = userManager;
-			this.signInManager = signInManager;
+			this.authService = authService;
 		}
 
 		[HttpPost("register")]
-		public async Task<IActionResult> Register([FromBody] RegisterLoginDto model)
+		public async Task<IActionResult> Register(RegisterLoginDto model)
 		{
-			var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-			var result = await userManager.CreateAsync(user, model.Password);
+			var result = await authService.RegisterAsync(model);
 
 			if (result.Succeeded)
 			{
@@ -34,9 +31,9 @@ namespace SpotMyJobApp.Controllers
 		}
 
 		[HttpPost("login")]
-		public async Task<IActionResult> Login([FromBody] RegisterLoginDto model)
+		public async Task<IActionResult> Login(RegisterLoginDto model)
 		{
-			var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: false, lockoutOnFailure: false);
+			var result = await authService.LoginAsync(model);
 
 			if (result.Succeeded)
 			{
@@ -49,7 +46,7 @@ namespace SpotMyJobApp.Controllers
 		[HttpPost("logout")]
 		public async Task<IActionResult> Logout()
 		{
-			await signInManager.SignOutAsync();
+			await authService.LogoutAsync();
 			return Ok(new { message = "Logout successful" });
 		}
 
