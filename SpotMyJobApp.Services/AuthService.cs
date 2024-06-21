@@ -2,11 +2,6 @@
 using SpotMyJobApp.Data.Models;
 using SpotMyJobApp.Services.Contracts;
 using SpotMyJobApp.Services.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpotMyJobApp.Services
 {
@@ -23,7 +18,8 @@ namespace SpotMyJobApp.Services
 
 		public async Task<IdentityResult> RegisterAsync(RegisterLoginDto model)
 		{
-			var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+			var user = new ApplicationUser { UserName = model.Email, Email = model.Email,
+				FirstName = model.FirstName, LastName = model.LastName, PhoneNumber = model.PhoneNumber };
 			var result = await userManager.CreateAsync(user, model.Password);
 
 			return result;

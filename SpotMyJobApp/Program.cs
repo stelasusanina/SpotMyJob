@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SpotMyJobApp.Data.Models;
 using SpotMyJobApp.Data;
+using SpotMyJobApp.Services.Contracts;
+using SpotMyJobApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +40,8 @@ builder.Services.AddCors(options =>
 				.AllowCredentials();
 		});
 });
+
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddAuthorization();
 
