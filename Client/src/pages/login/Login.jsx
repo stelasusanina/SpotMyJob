@@ -1,12 +1,8 @@
-import React, { useState } from "react";
-import "./Login.css";
-import LoginRegisterForm from "../../components/loginRegisterForm/LoginRegisterForm";
+import React from "react";
+import LoginForm from "../../components/loginForm/LoginForm";
 
 export default function Login() {
     return(
-        <LoginRegisterForm
-            title="Login"
-            url="/api/auth/login"
-        />
+        <LoginForm url="https://localhost:7212/api/auth/login" />
     )
 }

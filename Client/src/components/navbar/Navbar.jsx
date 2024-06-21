@@ -25,6 +25,9 @@ export default function Navbar() {
                     <li>
                         <Link to="/auth/login" className={activePath === "/auth/login" ? "active" : ""}>Login</Link>
                     </li>
+                    <li>
+                        <Link to="/auth/register" className={activePath === "/auth/register" ? "active" : ""}>Register</Link>
+                    </li>
                 </ul>
             </nav>
         </div>

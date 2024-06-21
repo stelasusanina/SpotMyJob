@@ -1,14 +1,4 @@
-.register-login-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-.register-login{
+.register-form, .login-form{
     height: 350px; 
     background-image: linear-gradient(
         to top, 
@@ -48,7 +38,7 @@ h1{
     color: white;
 }
 
-.register-login button{
+.register-form button, .login-form button{
     background-color: white;
     border: none;
     border-radius: 20px;
@@ -57,4 +47,14 @@ h1{
     padding: 10px 18px;
     font-size: 14px;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    align-self: center;
+}
+
+.form-group{
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-group input{
+    width: 45%;
 }
