@@ -5,8 +5,8 @@ namespace SpotMyJobApp.Services.Contracts
 {
 	public interface IAuthService
 	{
-		Task<IdentityResult> RegisterAsync(RegisterLoginDto model); 
-		Task<SignInResult> LoginAsync(RegisterLoginDto model);
+		Task<IdentityResult> RegisterAsync(RegisterDto model); 
+		Task<SignInResult> LoginAsync(LoginDto model);
 		Task LogoutAsync();
 	}
 }

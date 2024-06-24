@@ -19,7 +19,6 @@ input{
     background-color: rgba(255, 255, 255, 0.4);
     border: none;
     border-radius: 12px;
-    margin-bottom: 23px;
     height: 28px;
     padding-left: 10px;
     color: white;
@@ -56,5 +55,5 @@ h1{
 }
 
 .form-group input{
-    width: 45%;
+    width: 90%;
 }

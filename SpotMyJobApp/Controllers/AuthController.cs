@@ -18,7 +18,7 @@ namespace SpotMyJobApp.Controllers
 		}
 
 		[HttpPost("register")]
-		public async Task<IActionResult> Register(RegisterLoginDto model)
+		public async Task<IActionResult> Register(RegisterDto model)
 		{
 			var result = await authService.RegisterAsync(model);
 
@@ -31,7 +31,7 @@ namespace SpotMyJobApp.Controllers
 		}
 
 		[HttpPost("login")]
-		public async Task<IActionResult> Login(RegisterLoginDto model)
+		public async Task<IActionResult> Login(LoginDto model)
 		{
 			var result = await authService.LoginAsync(model);
 

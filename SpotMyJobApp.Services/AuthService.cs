@@ -16,7 +16,7 @@ namespace SpotMyJobApp.Services
 			this.signInManager = signInManager;
 		}
 
-		public async Task<IdentityResult> RegisterAsync(RegisterLoginDto model)
+		public async Task<IdentityResult> RegisterAsync(RegisterDto model)
 		{
 			var user = new ApplicationUser { UserName = model.Email, Email = model.Email,
 				FirstName = model.FirstName, LastName = model.LastName, PhoneNumber = model.PhoneNumber };
@@ -25,8 +25,14 @@ namespace SpotMyJobApp.Services
 			return result;
 		}
 
-		public async Task<SignInResult> LoginAsync(RegisterLoginDto model)
+		public async Task<SignInResult> LoginAsync(LoginDto model)
 		{
+			var user = await userManager.FindByEmailAsync(model.Email);
+			if (user == null)
+			{
+				return SignInResult.Failed;
+			}
+
 			var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, 
 				isPersistent: false, lockoutOnFailure: false);
 
