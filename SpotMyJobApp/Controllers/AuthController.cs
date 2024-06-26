@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SpotMyJobApp.Data.Models;
 using SpotMyJobApp.Services.Contracts;
@@ -11,10 +10,13 @@ namespace SpotMyJobApp.Controllers
 	[ApiController]
 	public class AuthController : ControllerBase
 	{
+		private readonly UserManager<ApplicationUser> userManager;
 		private readonly IAuthService authService;
-		public AuthController(IAuthService authService)
+
+		public AuthController(IAuthService authService, UserManager<ApplicationUser> userManager)
 		{
 			this.authService = authService;
+			this.userManager = userManager;
 		}
 
 		[HttpPost("register")]
@@ -38,7 +40,7 @@ namespace SpotMyJobApp.Controllers
 		[HttpPost("login")]
 		public async Task<IActionResult> Login(LoginDto model)
 		{
-			if (!ModelState.IsValid)
+			if(!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
@@ -47,7 +49,8 @@ namespace SpotMyJobApp.Controllers
 
 			if (result.Succeeded)
 			{
-				return Ok(new { message = "Login successful" });
+				var user = await userManager.FindByEmailAsync(model.Email);
+				return Ok(new { message = "Login successful", user.FirstName, user.LastName });
 			}
 
 			return Unauthorized(new { message = "Invalid login attempt" });

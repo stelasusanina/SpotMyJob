@@ -1,0 +1,17 @@
+:root{
+    --toastify-font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+    --toastify-color-progress-light: linear-gradient(
+        to right,
+        rgba(162, 4, 253, 0.7),
+        rgba(250, 197, 7, 0.7)
+      ) !important;
+}
+
+.--toastify-color-success span{
+    color: black;
+}
+
+.names{
+    color:#a204fd !important;
+    font-weight: bold;
+}

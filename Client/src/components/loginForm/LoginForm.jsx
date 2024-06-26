@@ -2,7 +2,11 @@ import React from "react";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
 import "../shared/LoginRegisterForm.css";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import "../../shared/ToastifyStyles.css";
 
 const schema = yup.object().shape({
   email: yup.string().required("Email is required"),
@@ -10,6 +14,11 @@ const schema = yup.object().shape({
 });
 
 export default function LoginForm() {
+  const navigate = useNavigate();
+  const notify = (firstName, lastName) => toast(<span>Welcome, <span className="names">{firstName} {lastName}</span>!</span>, {
+    className: '--toastify-color-success',
+  });
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -19,7 +28,11 @@ export default function LoginForm() {
     onSubmit: async (values) => {
       try {
         const response = await axios.post("https://localhost:7212/api/auth/login", values);
-        console.log(response);
+
+        if (response.status === 200) {
+          notify(response.data.firstName, response.data.lastName);
+          navigate("/");
+        }
       } catch (error) {
         if (error.response.data.message === "Invalid login attempt") {
           formik.setErrors({ password: "Invalid email or password" });
