@@ -22,12 +22,21 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-	options.Cookie.HttpOnly = true;
+	options.Cookie.SecurePolicy = CookieSecurePolicy.None;
+	options.Cookie.SameSite = SameSiteMode.None;
 	options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
 	options.LoginPath = "/api/auth/login";
 	options.AccessDeniedPath = "/api/auth/access-denied";
 	options.SlidingExpiration = true;
 });
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+	options.Password.RequireNonAlphanumeric = false;
+	options.Password.RequireDigit = false;
+	options.Password.RequiredUniqueChars = 0;
+});
+
 
 builder.Services.AddCors(options =>
 {

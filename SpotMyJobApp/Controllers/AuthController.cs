@@ -20,6 +20,11 @@ namespace SpotMyJobApp.Controllers
 		[HttpPost("register")]
 		public async Task<IActionResult> Register(RegisterDto model)
 		{
+			if(!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
 			var result = await authService.RegisterAsync(model);
 
 			if (result.Succeeded)
@@ -33,6 +38,11 @@ namespace SpotMyJobApp.Controllers
 		[HttpPost("login")]
 		public async Task<IActionResult> Login(LoginDto model)
 		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest(ModelState);
+			}
+
 			var result = await authService.LoginAsync(model);
 
 			if (result.Succeeded)
