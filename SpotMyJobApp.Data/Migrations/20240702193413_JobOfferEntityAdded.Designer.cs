@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpotMyJobApp.Data;
 
@@ -11,9 +12,11 @@ using SpotMyJobApp.Data;
 namespace SpotMyJobApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240702193413_JobOfferEntityAdded")]
+    partial class JobOfferEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -155,42 +158,6 @@ namespace SpotMyJobApp.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.JobApplication", b =>
-                {
-                    b.Property<int>("JobOfferId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("JobOfferId", "ApplicationUserId");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("JobsApplications");
-                });
-
-            modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.JobCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("JobCategories");
-                });
-
             modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.JobOffer", b =>
                 {
                     b.Property<int>("Id")
@@ -217,9 +184,6 @@ namespace SpotMyJobApp.Data.Migrations
                     b.Property<bool>("IsFullTime")
                         .HasColumnType("bit");
 
-                    b.Property<int>("JobCategoryId")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("PostedOn")
                         .HasColumnType("datetime2");
 
@@ -229,31 +193,7 @@ namespace SpotMyJobApp.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("JobCategoryId");
-
                     b.ToTable("JobOffers");
-                });
-
-            modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.Section", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("JobOfferId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JobOfferId");
-
-                    b.ToTable("Section");
                 });
 
             modelBuilder.Entity("SpotMyJobApp.Data.Models.ApplicationUser", b =>
@@ -378,64 +318,6 @@ namespace SpotMyJobApp.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.JobApplication", b =>
-                {
-                    b.HasOne("SpotMyJobApp.Data.Models.ApplicationUser", "Applicant")
-                        .WithMany("JobsApplications")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SpotMyJobApp.Data.Data.Models.JobOffer", "JobOffer")
-                        .WithMany("JobsApplications")
-                        .HasForeignKey("JobOfferId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Applicant");
-
-                    b.Navigation("JobOffer");
-                });
-
-            modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.JobOffer", b =>
-                {
-                    b.HasOne("SpotMyJobApp.Data.Data.Models.JobCategory", "JobCategory")
-                        .WithMany("JobOffers")
-                        .HasForeignKey("JobCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("JobCategory");
-                });
-
-            modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.Section", b =>
-                {
-                    b.HasOne("SpotMyJobApp.Data.Data.Models.JobOffer", "JobOffer")
-                        .WithMany("Sections")
-                        .HasForeignKey("JobOfferId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("JobOffer");
-                });
-
-            modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.JobCategory", b =>
-                {
-                    b.Navigation("JobOffers");
-                });
-
-            modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.JobOffer", b =>
-                {
-                    b.Navigation("JobsApplications");
-
-                    b.Navigation("Sections");
-                });
-
-            modelBuilder.Entity("SpotMyJobApp.Data.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("JobsApplications");
                 });
 #pragma warning restore 612, 618
         }

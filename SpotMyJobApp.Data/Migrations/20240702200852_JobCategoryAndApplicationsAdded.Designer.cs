@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpotMyJobApp.Data;
 
@@ -11,9 +12,11 @@ using SpotMyJobApp.Data;
 namespace SpotMyJobApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240702200852_JobCategoryAndApplicationsAdded")]
+    partial class JobCategoryAndApplicationsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -234,28 +237,6 @@ namespace SpotMyJobApp.Data.Migrations
                     b.ToTable("JobOffers");
                 });
 
-            modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.Section", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("JobOfferId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JobOfferId");
-
-                    b.ToTable("Section");
-                });
-
             modelBuilder.Entity("SpotMyJobApp.Data.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -410,17 +391,6 @@ namespace SpotMyJobApp.Data.Migrations
                     b.Navigation("JobCategory");
                 });
 
-            modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.Section", b =>
-                {
-                    b.HasOne("SpotMyJobApp.Data.Data.Models.JobOffer", "JobOffer")
-                        .WithMany("Sections")
-                        .HasForeignKey("JobOfferId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("JobOffer");
-                });
-
             modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.JobCategory", b =>
                 {
                     b.Navigation("JobOffers");
@@ -429,8 +399,6 @@ namespace SpotMyJobApp.Data.Migrations
             modelBuilder.Entity("SpotMyJobApp.Data.Data.Models.JobOffer", b =>
                 {
                     b.Navigation("JobsApplications");
-
-                    b.Navigation("Sections");
                 });
 
             modelBuilder.Entity("SpotMyJobApp.Data.Models.ApplicationUser", b =>

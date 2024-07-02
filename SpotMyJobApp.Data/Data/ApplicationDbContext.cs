@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using SpotMyJobApp.Data.Data.Models;
 using SpotMyJobApp.Data.Models;
 
 namespace SpotMyJobApp.Data
@@ -10,6 +11,28 @@ namespace SpotMyJobApp.Data
 			:base(options)
 		{
 
+		}
+		
+		public DbSet<JobOffer> JobOffers { get; set; }
+		public DbSet<JobCategory> JobCategories { get; set; }
+		public DbSet<JobApplication> JobsApplications { get; set; }
+
+		protected override void OnModelCreating(ModelBuilder builder)
+		{
+			builder.Entity<JobApplication>()
+				.HasKey(ja => new { ja.JobOfferId, ja.ApplicationUserId });
+
+			builder.Entity<JobApplication>()
+				.HasOne(ja => ja.JobOffer)
+				.WithMany(jo => jo.JobsApplications)
+				.HasForeignKey(ja => ja.JobOfferId);
+
+			builder.Entity<JobApplication>()
+				.HasOne(ja => ja.Applicant)
+				.WithMany(a => a.JobsApplications)
+				.HasForeignKey(ja => ja.ApplicationUserId);
+
+			base.OnModelCreating(builder);
 		}
 	}
 }
