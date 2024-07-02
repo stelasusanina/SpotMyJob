@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SpotMyJobApp.Data.Data.Models;
 using SpotMyJobApp.Data.Models;
+using SpotMyJobApp.Data.SeedDb;
 
 namespace SpotMyJobApp.Data
 {
@@ -19,6 +20,8 @@ namespace SpotMyJobApp.Data
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
+			builder.ApplyConfiguration(new JobCategoryConfig());
+
 			builder.Entity<JobApplication>()
 				.HasKey(ja => new { ja.JobOfferId, ja.ApplicationUserId });
 
