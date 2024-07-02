@@ -4,6 +4,7 @@ using SpotMyJobApp.Data.Models;
 using SpotMyJobApp.Data;
 using SpotMyJobApp.Services.Contracts;
 using SpotMyJobApp.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,13 +23,18 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-	options.Cookie.SecurePolicy = CookieSecurePolicy.None;
-	options.Cookie.SameSite = SameSiteMode.None;
-	options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-	options.LoginPath = "/api/auth/login";
-	options.AccessDeniedPath = "/api/auth/access-denied";
-	options.SlidingExpiration = true;
+	options.Cookie.HttpOnly = true; // Ensures cookie is accessible only through HTTP requests
+	options.Cookie.SameSite = SameSiteMode.Lax; // Adjust as needed for your application's requirements
+	options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; // Adjust for HTTPS deployment
+	options.Cookie.Domain = "localhost"; // Domain for which the cookie is valid
+	options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Cookie expiration time
+	options.LoginPath = "/api/auth/login"; // Path where login redirects
+	options.AccessDeniedPath = "/api/auth/access-denied"; // Path for access denied redirects
+	options.SlidingExpiration = true; // Extend cookie lifetime on each request
 });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+	.AddCookie();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {

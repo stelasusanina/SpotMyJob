@@ -4,9 +4,10 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import "../shared/LoginRegisterForm.css";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../shared/ToastifyStyles.css";
+import { useAuth } from "../../contexts/AuthContext";
 
 const schema = yup.object().shape({
   email: yup.string().required("Email is required"),
@@ -15,9 +16,21 @@ const schema = yup.object().shape({
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const notify = (firstName, lastName) => toast(<span>Welcome, <span className="names">{firstName} {lastName}</span>!</span>, {
-    className: '--toastify-color-success',
-  });
+  const{ login } = useAuth();
+
+  const notify = (firstName, lastName) =>
+    toast(
+      <span>
+        Welcome,{" "}
+        <span className="names">
+          {firstName} {lastName}
+        </span>
+        !
+      </span>,
+      {
+        className: "--toastify-color-success",
+      }
+    );
 
   const formik = useFormik({
     initialValues: {
@@ -27,11 +40,16 @@ export default function LoginForm() {
     validationSchema: schema,
     onSubmit: async (values) => {
       try {
-        const response = await axios.post("https://localhost:7212/api/auth/login", values);
+        const response = await axios.post(
+          `${process.env.REACT_APP_API_BASE_URL}/auth/login`,
+          values,
+          { withCredentials: true }
+        );
 
         if (response.status === 200) {
           notify(response.data.firstName, response.data.lastName);
           navigate("/");
+          login(response.data);
         }
       } catch (error) {
         if (error.response.data.message === "Invalid login attempt") {

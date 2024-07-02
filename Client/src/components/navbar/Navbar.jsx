@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../photos/logo.jpg";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function Navbar() {
   const location = useLocation();
   const [activePath, setActivePath] = useState(location.pathname);
+  const { isLoggedIn, logout } = useAuth();
 
   useEffect(() => {
     setActivePath(location.pathname);
@@ -16,34 +18,57 @@ export default function Navbar() {
   };
 
   return (
-    <div className="nav-bar-container"  style={navBarStyle}>
+    <div className="nav-bar-container" style={navBarStyle}>
       <nav className="nav-bar">
         <img className="logo" src={logo} alt="logo" />
         <ul>
-          <li>
-            <Link to="/" className={activePath === "/" ? "active" : ""}>
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link to="/jobs" className={activePath === "/jobs" ? "active" : ""}>
-              Jobs
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/auth/login"
-              className={activePath === "/auth/login" ? "active" : ""}>
-              Login
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/auth/register"
-              className={activePath === "/auth/register" ? "active" : ""}>
-              Register
-            </Link>
-          </li>
+          <div className="common">
+            <li>
+              <Link to="/" className={activePath === "/" ? "active" : ""}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/jobs"
+                className={activePath === "/jobs" ? "active" : ""}>
+                Jobs
+              </Link>
+            </li>
+          </div>
+          {!isLoggedIn ? (
+            <div className="logged-out">
+              <li>
+                <Link
+                  to="/auth/login"
+                  className={activePath === "/auth/login" ? "active" : ""}>
+                  Login
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/auth/register"
+                  className={activePath === "/auth/register" ? "active" : ""}>
+                  Register
+                </Link>
+              </li>
+            </div>
+          ) : (
+            <div className="logged-in">
+              <li>
+                <Link
+                  to="/myProfile"
+                  className={activePath === "/myProfile" ? "active" : ""}>
+                  My Profile
+                </Link>
+              </li>
+              <li>
+                <button className="logout-button" onClick={logout}>
+                  Logout
+                </button>
+              </li>
+            </div>
+          )}
         </ul>
       </nav>
     </div>

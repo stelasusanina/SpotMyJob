@@ -1,6 +1,8 @@
 .nav-bar ul {
     padding: 0;
     margin-left: 10px;
+    align-items: center;
+    display: flex;
 }
 
 .nav-bar ul li {
@@ -42,4 +44,21 @@
     position: absolute;
     bottom: -2px; 
     left: 0;
+}
+
+.logout-button{
+    background-color: #a204fd;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 10px 18px;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-size: 16px;
+    align-self: center;
+}
+
+.logout-button:active{
+    box-shadow: 7px 6px 28px 1px rgba(0, 0, 0, 0.24); 
+    transform: translateY(2px); 
 }

@@ -47,7 +47,7 @@ export default function RegisterForm() {
     onSubmit: async (values) => {
       try {
         const response = await axios.post(
-          "https://localhost:7212/api/auth/register",
+          `${process.env.REACT_APP_API_BASE_URL}/auth/register`,
           values
         );
         console.log(response);
