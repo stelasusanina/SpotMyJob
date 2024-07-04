@@ -23,14 +23,14 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-	options.Cookie.HttpOnly = true; // Ensures cookie is accessible only through HTTP requests
-	options.Cookie.SameSite = SameSiteMode.Lax; // Adjust as needed for your application's requirements
-	options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; // Adjust for HTTPS deployment
-	options.Cookie.Domain = "localhost"; // Domain for which the cookie is valid
-	options.ExpireTimeSpan = TimeSpan.FromMinutes(60); // Cookie expiration time
-	options.LoginPath = "/api/auth/login"; // Path where login redirects
-	options.AccessDeniedPath = "/api/auth/access-denied"; // Path for access denied redirects
-	options.SlidingExpiration = true; // Extend cookie lifetime on each request
+	options.Cookie.HttpOnly = false; 
+	options.Cookie.SameSite = SameSiteMode.None; 
+	options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; 
+	options.Cookie.Domain = "localhost";
+	options.ExpireTimeSpan = TimeSpan.FromMinutes(60); 
+	options.LoginPath = "/api/auth/login"; 
+	options.AccessDeniedPath = "/api/auth/access-denied"; 
+	options.SlidingExpiration = true; 
 });
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

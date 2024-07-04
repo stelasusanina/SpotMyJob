@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../shared/ToastifyStyles.css";
 import { useAuth } from "../../contexts/AuthContext";
+import Cookies from "js-cookie";
 
 const schema = yup.object().shape({
   email: yup.string().required("Email is required"),
@@ -16,7 +17,7 @@ const schema = yup.object().shape({
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const{ login } = useAuth();
+  const{ login, cookie } = useAuth();
 
   const notify = (firstName, lastName) =>
     toast(

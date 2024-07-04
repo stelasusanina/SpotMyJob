@@ -7,7 +7,7 @@ import { useAuth } from "../../contexts/AuthContext";
 export default function Navbar() {
   const location = useLocation();
   const [activePath, setActivePath] = useState(location.pathname);
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, logout, cookie } = useAuth();
 
   useEffect(() => {
     setActivePath(location.pathname);

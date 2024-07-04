@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const AuthContext = createContext();
 
@@ -10,10 +11,20 @@ export function useAuth() {
 export function AuthProvider (props){
     const [user, setUser] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [cookie, setCookie] = useState(null);
+
+    useEffect(() => {
+        const cookieValue = Cookies.get('.AspNetCore.Identity.Application');
+        if (cookieValue) {
+            setIsLoggedIn(true);
+            setCookie(cookieValue);
+        }
+    }, []);
     
     const login = (userData) => {
         setUser(userData);
         setIsLoggedIn(true);
+        setCookie(Cookies.get('.AspNetCore.Identity.Application'));
     };
 
     const logout = async () => {
@@ -27,6 +38,7 @@ export function AuthProvider (props){
             if (response.status === 200) {
               setIsLoggedIn(false);
               setUser(null);
+              setCookie(null);
             } else {
               console.error("Logout failed:", response.statusText);
             }
@@ -42,6 +54,8 @@ export function AuthProvider (props){
       setIsLoggedIn,
       login,
       logout,
+      cookie, 
+      setCookie
     };
 
     return (
