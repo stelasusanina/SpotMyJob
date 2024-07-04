@@ -15,6 +15,8 @@ namespace SpotMyJobApp.Data.Data.Models
 		[Required]
 		public string Name { get; set; } = null!;
 
+		[Required]
+		public string ImageUrl { get; set; } = null!;
 		public ICollection<JobOffer> JobOffers { get; set; } = new List<JobOffer>();
 
 	}
