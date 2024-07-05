@@ -15,6 +15,10 @@ namespace SpotMyJobApp.Data.SeedDb
 		public JobCategory Law {  get; set; }
 		public JobCategory Production { get; set; }
 		public JobCategory Marketing { get; set; }
+		public JobCategory Tourism { get; set; }
+		public JobCategory RealEstate { get; set; }
+		public JobCategory TradeAndSales { get; set; }
+		public JobCategory Restaurants { get; set; }
 
 		public SeedData()
 		{
@@ -27,42 +31,70 @@ namespace SpotMyJobApp.Data.SeedDb
 			{
 				Id = 1,
 				Name = "Education",
-				ImageUrl = "https://www.flaticon.com/free-icon/education_3976631?term=education&page=1&position=7&origin=tag&related_id=3976631"
+				ImageUrl = "https://img.icons8.com/?size=100&id=jWPjQhx0oPhE&format=png&color=000000"
 			};
 
 			HealthCare = new JobCategory()
 			{
 				Id = 2,
 				Name = "Healthcare",
-				ImageUrl = "https://www.flaticon.com/free-icon/healthcare_2382461?term=healthcare&page=1&position=5&origin=search&related_id=2382461"
+				ImageUrl = "https://img.icons8.com/?size=100&id=PSyk3ndz4y8Q&format=png&color=000000"
 			};
 
 			Finance = new JobCategory()
 			{
 				Id = 3,
 				Name = "Finance",
-				ImageUrl = "https://www.flaticon.com/free-icon/budget_781831?term=finance&page=1&position=3&origin=search&related_id=781831"
+				ImageUrl = "https://img.icons8.com/?size=100&id=gUZ2I_4-D9kf&format=png&color=000000"
 			};
 
 			Law = new JobCategory()
 			{
 				Id = 4,
 				Name = "Law",
-				ImageUrl = "https://www.flaticon.com/free-icon/compliant_4252296?term=law&page=1&position=4&origin=search&related_id=4252296"
+				ImageUrl = "https://img.icons8.com/?size=100&id=ZUwxA3fsWxzF&format=png&color=000000"
 			};
 
 			Production = new JobCategory()
 			{
 				Id = 5,
 				Name = "Production",
-				ImageUrl = "https://www.flaticon.com/free-icon/manufacturing_2821866?term=production&page=1&position=26&origin=search&related_id=2821866"
+				ImageUrl = "https://img.icons8.com/?size=100&id=AIDAcjXSRdJQ&format=png&color=000000"
 			};
 
 			Marketing = new JobCategory()
 			{
 				Id = 6,
 				Name = "Marketing",
-				ImageUrl = "https://www.flaticon.com/free-icon/content_9743201?term=marketing&page=1&position=39&origin=search&related_id=9743201"
+				ImageUrl = "https://img.icons8.com/?size=100&id=1nBLKCIr03wS&format=png&color=000000"
+			};
+
+			Tourism = new JobCategory()
+			{
+				Id = 7,
+				Name = "Tourism",
+				ImageUrl = "https://img.icons8.com/?size=100&id=108778&format=png&color=000000"
+			};
+
+			RealEstate = new JobCategory()
+			{
+				Id = 8,
+				Name = "Real Estate",
+				ImageUrl = "https://img.icons8.com/?size=100&id=zFSrLrSD9rtA&format=png&color=000000"
+			};
+
+			TradeAndSales = new JobCategory()
+			{
+				Id = 9,
+				Name = "Trade & Sales",
+				ImageUrl = "https://img.icons8.com/?size=100&id=119113&format=png&color=000000"
+			};
+
+			Restaurants = new JobCategory()
+			{
+				Id = 10,
+				Name = "Restaurants",
+				ImageUrl = "https://img.icons8.com/?size=100&id=ljP1BCzecHs6&format=png&color=000000"
 			};
 		}
 	}

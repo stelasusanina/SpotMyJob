@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpotMyJobApp.Data;
 
@@ -11,9 +12,11 @@ using SpotMyJobApp.Data;
 namespace SpotMyJobApp.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240705150141_NewIconsAdded")]
+    partial class NewIconsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -230,30 +233,6 @@ namespace SpotMyJobApp.Data.Migrations
                             Id = 5,
                             ImageUrl = "https://img.icons8.com/?size=100&id=AIDAcjXSRdJQ&format=png&color=000000",
                             Name = "Production"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            ImageUrl = "https://img.icons8.com/?size=100&id=ljP1BCzecHs6&format=png&color=000000",
-                            Name = "Restaurants"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            ImageUrl = "https://img.icons8.com/?size=100&id=119113&format=png&color=000000",
-                            Name = "Trade & Sales"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            ImageUrl = "https://img.icons8.com/?size=100&id=zFSrLrSD9rtA&format=png&color=000000",
-                            Name = "Real Estate"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            ImageUrl = "https://img.icons8.com/?size=100&id=108778&format=png&color=000000",
-                            Name = "Tourism"
                         });
                 });
 

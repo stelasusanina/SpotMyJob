@@ -22,7 +22,11 @@ namespace SpotMyJobApp.Data.SeedDb
 				data.Marketing,
 				data.Law,
 				data.HealthCare,
-				data.Production
+				data.Production,
+				data.Restaurants,
+				data.TradeAndSales,
+				data.RealEstate,
+				data.Tourism
 			});
 		}
 	}
