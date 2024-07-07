@@ -58,6 +58,7 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
+builder.Services.AddScoped<IJobsService, JobsService>();
 
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
