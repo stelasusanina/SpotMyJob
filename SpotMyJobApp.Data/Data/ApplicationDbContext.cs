@@ -17,10 +17,13 @@ namespace SpotMyJobApp.Data
 		public DbSet<JobOffer> JobOffers { get; set; }
 		public DbSet<JobCategory> JobCategories { get; set; }
 		public DbSet<JobApplication> JobsApplications { get; set; }
+		public DbSet<Section> Sections { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
 			builder.ApplyConfiguration(new JobCategoryConfig());
+			builder.ApplyConfiguration(new JobOfferConfig());
+			builder.ApplyConfiguration(new SectionConfig());
 
 			builder.Entity<JobApplication>()
 				.HasKey(ja => new { ja.JobOfferId, ja.ApplicationUserId });

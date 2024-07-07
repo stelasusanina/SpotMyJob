@@ -31,6 +31,9 @@ namespace SpotMyJobApp.Data.Data.Models
         public string? CompanyDescription { get; set; }
         public bool IsFullTime { get; set; }
 
+		[Required]
+		public string CompanyImgUrl { get; set; } = null!;
+
 		[ForeignKey(nameof(JobCategory))]
 		public int JobCategoryId { get; set; }
 		public JobCategory JobCategory { get; set; } = null!;

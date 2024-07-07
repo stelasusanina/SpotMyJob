@@ -18,6 +18,9 @@ namespace SpotMyJobApp.Data.Data.Models
 		public JobOffer JobOffer { get; set; } = null!;
 
 		[Required]
+		public string Name { get; set; } = null!;
+
+		[Required]
 		public string Content { get; set; } = null!;
 
     }
