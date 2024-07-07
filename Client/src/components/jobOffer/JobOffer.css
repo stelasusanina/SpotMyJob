@@ -1,0 +1,40 @@
+.job-container{
+    display: flex;
+    width: 80%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 5px;
+    padding: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.job-container img{
+    width: 15%;
+    height: 18%;
+}
+
+.job-info{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.job-details{
+    display: flex;
+}
+
+.job-details p{
+    margin-right: 15px;
+}
+
+.job-details p img{
+    margin-right: 5px;
+    height: auto;
+    width: 10%;
+}
+
+.detail{
+    display: flex;
+    flex-direction: column;
+}
+
