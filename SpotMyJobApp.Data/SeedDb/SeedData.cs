@@ -129,7 +129,7 @@ namespace SpotMyJobApp.Data.SeedDb
 				City = "Sofia",
 				CompanyName = "BAB consult",
 				CompanyDescription = "As a recruiting agency, we offer you an exceptional job opportunity for a trusted client. They are a leading BPO company and are currently seeking ambitious travel enthusiasts.\r\n\r\nWith a focus on luxury and bespoke travel arrangements, they pride themselves on delivering exceptional service and creating lifelong memories for clients worldwide.",
-				CompanyImgUrl = "https://worktalent.com/web/uploads/site_users_company/236/logo/thumb_314x132_download.png",
+				CompanyImgUrl = "https://babconsult.bg/themes/vreedom18-bingo-child/assets/images/logo.svg",
 				IsFullTime = true,
 				JobCategoryId = 7
 			};
