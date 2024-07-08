@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../photos/logo.jpg";
 import { useAuth } from "../../contexts/AuthContext";
 
 export default function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [activePath, setActivePath] = useState(location.pathname);
-  const { isLoggedIn, logout, cookie } = useAuth();
+  const { isLoggedIn, logout } = useAuth();
 
   useEffect(() => {
     setActivePath(location.pathname);
@@ -15,6 +16,11 @@ export default function Navbar() {
 
   const navBarStyle = {
     marginBottom: activePath === "/" ? "0px" : "20px",
+  };
+
+  const logoutUser = () => {
+    logout();
+    navigate("/");
   };
 
   return (
@@ -63,7 +69,7 @@ export default function Navbar() {
                 </Link>
               </li>
               <li>
-                <button className="logout-button" onClick={logout}>
+                <button className="logout-button" onClick={logoutUser}>
                   Logout
                 </button>
               </li>
