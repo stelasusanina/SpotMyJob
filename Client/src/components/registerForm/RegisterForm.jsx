@@ -3,6 +3,10 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 import "../shared/LoginRegisterForm.css";
+import { useAuth } from "../../contexts/AuthContext";
+import { toast } from "react-toastify";
+import "../../shared/ToastifyStyles.css";
+import { useNavigate } from "react-router-dom";
 
 const schema = yup.object().shape({
   firstName: yup
@@ -34,6 +38,23 @@ const schema = yup.object().shape({
 });
 
 export default function RegisterForm() {
+  const {login} = useAuth();
+  const navigate = useNavigate();
+
+  const notify = (firstName, lastName) => {
+    toast(
+      <span>
+        You have successfully registered,{" "}
+        <span className="names">
+          {firstName} {lastName}!
+        </span>
+      </span>,
+      {
+        className: "--toastify-color-success",
+      }
+    );
+  }
+
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -50,7 +71,15 @@ export default function RegisterForm() {
           `${process.env.REACT_APP_API_BASE_URL}/auth/register`,
           values
         );
-        console.log(response);
+
+        if (response.status === 200) {
+          notify(response.data.firstName, response.data.lastName);
+          login(response.data);
+          navigate("/");
+        }
+        else{
+          console.log(response.data);
+        }
       } catch (error) {
         console.log(error.response.data);
         if (error.response.data[0].code === "DuplicateUserName") {

@@ -3,6 +3,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../photos/logo.jpg";
 import { useAuth } from "../../contexts/AuthContext";
+import { toast } from "react-toastify";
+import "../../shared/ToastifyStyles.css";
 
 export default function Navbar() {
   const location = useLocation();
@@ -18,8 +20,14 @@ export default function Navbar() {
     marginBottom: activePath === "/" ? "0px" : "20px",
   };
 
+  const notify = () =>
+    toast(<span>You have successfully logged out!</span>, {
+      className: "--toastify-color-success",
+    });
+
   const logoutUser = () => {
     logout();
+    notify();
     navigate("/");
   };
 

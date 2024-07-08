@@ -31,7 +31,8 @@ namespace SpotMyJobApp.Controllers
 
 			if (result.Succeeded)
 			{
-				return Ok(new { message = "User registered successfully" });
+				var user = await userManager.FindByEmailAsync(model.Email);
+				return Ok(new { message = "User registered successfully", user.FirstName, user.LastName });
 			}
 
 			return BadRequest(result.Errors);
