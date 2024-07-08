@@ -32,7 +32,37 @@ namespace SpotMyJobApp.Services
 				JobCategory = jo.JobCategory.Name
 			}).ToListAsync();
 
-		    return jobs;
+			return jobs;
+		}
+
+		public async Task<JobOfferDto> GetJobDetailsAsync(int jobId)
+		{
+			var job = await context.JobOffers.Where(jo => jo.Id == jobId)
+				.Select(jo => new JobOfferDto
+				{
+					Id = jo.Id,
+					Title = jo.Title,
+					PostedOn = jo.PostedOn,
+					City = jo.City,
+					Country = jo.Country,
+					CompanyImgUrl = jo.CompanyImgUrl,
+					IsFullTime = jo.IsFullTime,
+					JobCategory = jo.JobCategory.Name,
+					JobsApplicationsCount = jo.JobsApplications.Count(),
+					Sections = jo.Sections.Where(s => s.JobOfferId == jobId).Select(s => new SectionDto
+					{
+						Id = s.Id,
+						Name = s.Name,
+						Content = s.Content
+					}).ToList()
+				}).FirstOrDefaultAsync();
+
+			if (job == null)
+			{
+				return null;
+			}
+
+			return job;
 		}
 	}
 }

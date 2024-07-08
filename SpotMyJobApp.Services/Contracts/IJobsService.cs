@@ -10,5 +10,6 @@ namespace SpotMyJobApp.Services.Contracts
 	public interface IJobsService
 	{
 		Task<IEnumerable<ShortJobOfferDto>> GetAllJobsAsync();
+		Task<JobOfferDto> GetJobDetailsAsync(int jobId);
 	}
 }
