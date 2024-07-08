@@ -3,14 +3,15 @@
     width: 80%;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: 5px;
-    padding: 15px;
+    padding: 0 25px;
     align-items: center;
     margin-bottom: 20px;
+    height: 120px;
+    justify-content: space-between;
 }
 
-.job-container img{
+.company-logo{
     width: 15%;
-    height: 18%;
 }
 
 .job-info{
@@ -19,22 +20,27 @@
     width: 80%;
 }
 
+.job-info h2{
+    margin-top: 0;
+}
+
 .job-details{
     display: flex;
 }
 
-.job-details p{
-    margin-right: 15px;
-}
-
-.job-details p img{
-    margin-right: 5px;
-    height: auto;
-    width: 10%;
+.detail p{
+    margin: 0;
+    font-size: 16px;
 }
 
 .detail{
     display: flex;
-    flex-direction: column;
+    place-self: flex-start;
+    align-items: center;
+}
+
+.detail img{
+    width: 10%;
+    margin-right: 5px;
 }
 
