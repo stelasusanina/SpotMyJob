@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import "./SingleJobOffer.css";
 
 export default function SingleJobOffer() {
     const { jobId } = useParams();
@@ -22,10 +23,10 @@ export default function SingleJobOffer() {
     }, [jobId]);
 
     return (
-      <div className="container">
+      <div>
         {job && (
           <div className="container">
-            <h2>
+            <h2 className="job-title">
               {job.title} at{" "}
               <span className="company-name">{job.companyName}</span>{" "}
             </h2>
@@ -81,7 +82,13 @@ export default function SingleJobOffer() {
                       .map((sentence) => sentence.trim())
                       .filter((sentence) => sentence.length > 0)
                       .map((sentence, index) => (
-                        <li key={index}>{sentence}</li>
+                        <li
+                          className={
+                            section.name === "Benefits" ? "benefits" : ""
+                          }
+                          key={index}>
+                          {sentence}
+                        </li>
                       ))}
                   </ul>
                 </div>

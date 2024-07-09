@@ -113,7 +113,7 @@ namespace SpotMyJobApp.Data.SeedDb
 			{
 				Id = 9,
 				JobOfferId = 3,
-				Name = "Benfits",
+				Name = "Benefits",
 				Content = "Chance to work in international company. Opportunity to gain specific know-how. Competitive salary. Excellent remuneration package."
 			};
 		}

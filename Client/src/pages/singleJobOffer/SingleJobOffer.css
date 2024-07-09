@@ -1,0 +1,46 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 80px;
+}
+
+.details-block{
+    display: flex;
+    background: linear-gradient( to top,
+    rgba(162, 4, 253, 0.6),
+    rgba(250, 197, 7, 0.6));
+    width: 60%;
+    justify-content: space-between;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.company-description{
+    text-align: justify;
+}
+
+.company-name{
+    color: #a204fd;
+    font-style: italic;
+    text-transform: uppercase;
+}
+
+ul{
+    padding-left: 20px;
+}
+
+li{
+    list-style: url("https://img.icons8.com/?size=15&id=79029&format=png&color=a204fd") ;
+    margin-bottom: 5px;
+}
+
+.benefits{
+    list-style: url("https://img.icons8.com/?size=15&id=83145&format=png&color=20C967") ;
+}
+
+.total-applications{
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 13px;
+}

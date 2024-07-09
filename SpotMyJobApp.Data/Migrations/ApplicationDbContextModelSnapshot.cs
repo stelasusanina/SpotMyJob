@@ -430,7 +430,7 @@ namespace SpotMyJobApp.Data.Migrations
                             Id = 9,
                             Content = "Chance to work in international company. Opportunity to gain specific know-how. Competitive salary. Excellent remuneration package.",
                             JobOfferId = 3,
-                            Name = "Benfits"
+                            Name = "Benefits"
                         });
                 });
 
