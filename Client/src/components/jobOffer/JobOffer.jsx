@@ -1,13 +1,16 @@
 import React from "react";
 import "./JobOffer.css";
+import { Link } from "react-router-dom";
 
-export default function JobOffer({ title, country, city, companyImgUrl, postedOn, isFullTime }) {
+export default function JobOffer({id, title, country, city, companyImgUrl, postedOn, isFullTime }) {
     const formattedDate = new Date(postedOn).toLocaleDateString();
 
     return (
       <div className="job-container">
         <div className="job-info">
-          <h2>{title}</h2>
+          <Link className="job-title" to={`/jobs/${id}`}>
+            <h2>{title}</h2>
+          </Link>
           <div className="job-details">
             <div className="detail">
               <img

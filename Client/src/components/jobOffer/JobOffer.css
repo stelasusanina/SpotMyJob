@@ -44,3 +44,11 @@
     margin-right: 5px;
 }
 
+.job-title{
+    text-decoration: none;
+    color: black;
+}
+
+.job-title:hover{
+    color: #a204fd;
+}

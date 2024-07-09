@@ -22,6 +22,7 @@ export default function Jobs() {
     return jobs.map((job) => (
       <JobOffer
         key={job.id}
+        id={job.id}
         title={job.title}
         country={job.country}
         city={job.city}
