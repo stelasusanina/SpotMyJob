@@ -6,6 +6,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import { ToastContainer } from "react-toastify";
 import Jobs from "./pages/jobs/Jobs";
+import SingleJobOffer from "./pages/singleJobOffer/SingleJobOffer";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/auth/login" element={<Login />} />
         <Route path="/auth/register" element={<Register />} />
         <Route path="/jobs" element={<Jobs />} />
+        <Route path="jobs/:jobId" element={<SingleJobOffer />}/>
       </Routes>
       <ToastContainer />
     </Router>

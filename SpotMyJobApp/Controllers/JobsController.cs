@@ -28,7 +28,7 @@ namespace SpotMyJobApp.Controllers
 			return Ok(jobs);
 		}
 
-		[HttpGet("jobOffer/{jobId}")]
+		[HttpGet("{jobId}")]
 		public async Task<ActionResult<JobOfferDto>> GetJobDetails(int jobId)
 		{
 			var job = await jobsService.GetJobDetailsAsync(jobId);

@@ -45,10 +45,11 @@ namespace SpotMyJobApp.Services
 					PostedOn = jo.PostedOn,
 					City = jo.City,
 					Country = jo.Country,
-					CompanyImgUrl = jo.CompanyImgUrl,
+					CompanyName = jo.CompanyName,
+					CompanyDescription = jo.CompanyDescription,
 					IsFullTime = jo.IsFullTime,
 					JobCategory = jo.JobCategory.Name,
-					JobsApplicationsCount = jo.JobsApplications.Count(),
+					JobApplicationsCount = jo.JobsApplications.Count(),
 					Sections = jo.Sections.Where(s => s.JobOfferId == jobId).Select(s => new SectionDto
 					{
 						Id = s.Id,
