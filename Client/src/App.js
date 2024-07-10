@@ -18,6 +18,7 @@ function App() {
         <Route path="/auth/register" element={<Register />} />
         <Route path="/jobs" element={<Jobs />} />
         <Route path="jobs/:jobId" element={<SingleJobOffer />}/>
+        <Route path="jobs/search" element={<Jobs />} />
       </Routes>
       <ToastContainer />
     </Router>

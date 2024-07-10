@@ -35,8 +35,8 @@
 
 .detail{
     display: flex;
-    place-self: flex-start;
     align-items: center;
+    justify-content: center;
 }
 
 .detail img{

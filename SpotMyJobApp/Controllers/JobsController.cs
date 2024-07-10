@@ -16,11 +16,11 @@ namespace SpotMyJobApp.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<ShortJobOfferDto>>> GetAllJobs() 
+		public async Task<ActionResult<IEnumerable<ShortJobOfferDto>>> GetAllJobs()
 		{
-			var jobs = await jobsService.GetAllJobsAsync();	
+			var jobs = await jobsService.GetAllJobsAsync();
 
-			if(jobs == null)
+			if (jobs == null)
 			{
 				return BadRequest();
 			}
@@ -33,12 +33,25 @@ namespace SpotMyJobApp.Controllers
 		{
 			var job = await jobsService.GetJobDetailsAsync(jobId);
 
-			if(job == null)
+			if (job == null)
 			{
 				return BadRequest();
 			}
 
 			return Ok(job);
+		}
+
+		[HttpGet("search")]
+		public async Task<ActionResult<IEnumerable<ShortJobOfferDto>>> SearchJobs([FromQuery]string jobTitle)
+		{
+			var jobsBySearch = await jobsService.SearchJobsAsync(jobTitle);
+
+			if (jobsBySearch == null)
+			{
+				return BadRequest();
+			}
+
+			return Ok(jobsBySearch);
 		}
 	}
 }
