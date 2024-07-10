@@ -28,18 +28,17 @@
     display: flex;
 }
 
-.detail p{
+.job-details p{
     margin: 0;
     font-size: 16px;
 }
 
-.detail{
+.job-details div{
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 
-.detail img{
+.job-details div img{
     width: 10%;
     margin-right: 5px;
 }

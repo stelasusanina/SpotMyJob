@@ -12,7 +12,7 @@ export default function JobOffer({id, title, country, city, companyImgUrl, poste
             <h2>{title}</h2>
           </Link>
           <div className="job-details">
-            <div className="detail">
+            <div>
               <img
                 src="https://img.icons8.com/?size=100&id=85149&format=png&color=000000"
                 alt="Location Icon"
@@ -21,14 +21,14 @@ export default function JobOffer({id, title, country, city, companyImgUrl, poste
                 {country}, {city}
               </p>
             </div>
-            <div className="detail">
+            <div>
               <img
                 src="https://img.icons8.com/?size=100&id=3344&format=png&color=000000"
                 alt="Calendar Icon"
               />
               <p>{formattedDate}</p>
             </div>
-            <div className="detail">
+            <div>
               <img
                 src={
                   isFullTime

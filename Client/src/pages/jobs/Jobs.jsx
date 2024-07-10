@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import JobOffer from "../../components/jobOffer/JobOffer";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import "./Jobs.css";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
@@ -9,7 +10,6 @@ export default function Jobs() {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    // Function to fetch jobs based on search params
     const fetchJobs = async (jobTitle) => {
       try {
         let response;
@@ -27,23 +27,20 @@ export default function Jobs() {
       }
     };
 
-    // Fetch jobs based on initial search params
     const jobTitle = searchParams.get("jobTitle");
     fetchJobs(jobTitle);
 
-    // Optionally, if you want to navigate programmatically
-    // based on the search params, you can do so here
     if (jobTitle) {
-      navigate(`/jobs/search?jobTitle=${jobTitle}`, { replace: true });
+      navigate(`/jobs/search?jobTitle=${jobTitle}`);
     }
   }, [searchParams, navigate]);
 
   return (
-    <div>
+    <div className="jobs-board">
       {jobs.map((job) => (
         <JobOffer
           key={job.id}
-          job={job}
+          id={job.id}
           title={job.title}
           companyName={job.companyName}
           companyImgUrl={job.companyImgUrl}

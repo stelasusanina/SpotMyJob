@@ -26,7 +26,7 @@ export default function SingleJobOffer() {
       <div>
         {job && (
           <div className="job-box">
-            <h2>
+            <h2 className="job-title">
               {job.title} at{" "}
               <span className="company-name">{job.companyName}</span>{" "}
             </h2>
