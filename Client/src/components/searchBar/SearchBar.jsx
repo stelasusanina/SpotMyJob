@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./SearchBar.css";
 
 export default function SearchBar({ onSearch }) {
   const [input, setInput] = useState("");
@@ -14,14 +15,13 @@ export default function SearchBar({ onSearch }) {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search job title"
-        onChange={handleInputChange}
-        value={input}
-      />
-      <button onClick={handleSearch}>Submit</button>
-    </div>
+    <input
+      className="search-bar-input"
+      type="text"
+      placeholder="Search job title"
+      onChange={handleInputChange}
+      value={input}
+      onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+    />
   );
 }

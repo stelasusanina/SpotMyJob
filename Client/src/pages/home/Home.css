@@ -9,6 +9,9 @@
     url("../../photos/people-working.jpg");
   background-size: cover;
   background-position: 75% 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .w-full {

@@ -1,0 +1,12 @@
+.search-bar-input::placeholder{
+    color: #a204fd7e;
+}
+
+.search-bar-input{
+    background-color: white;
+    color: #a204fd7e;
+    height:40px;
+    width: 60%;
+    font-size: 18px;
+    padding: 5px 10px;
+}
