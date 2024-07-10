@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./CategoriesBlock.css";
+import { Link } from "react-router-dom";
 
 export default function CategoriesBlock() {
     const [categories, setCategories] = useState([]);
@@ -19,13 +20,16 @@ export default function CategoriesBlock() {
     }, []); 
 
     return (
-        <div className="categories-block">
-            {categories.map((category) => (
-                <div className="category-box" key={category.id}>
-                    <img src={category.imageUrl} alt={category.name} />
-                    <span>{category.name}</span>
-                </div>
-            ))}
-        </div>
+      <div className="categories-block">
+        {categories.map((category) => (
+          <Link
+            to={`jobs/filter?category=${category.name}`}
+            className="category-box"
+            key={category.id}>
+            <img src={category.imageUrl} alt={category.name} />
+            <span>{category.name}</span>
+          </Link>
+        ))}
+      </div>
     );
 }

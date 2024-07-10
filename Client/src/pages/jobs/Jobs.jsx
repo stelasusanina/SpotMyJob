@@ -10,16 +10,24 @@ export default function Jobs() {
   const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const fetchJobs = async (jobTitle) => {
+    const fetchData = async () => {
       try {
         let response;
+        const jobTitle = searchParams.get("jobTitle");
+        const category = searchParams.get("category");
+
         if (jobTitle) {
           response = await axios.get(
             `${process.env.REACT_APP_API_BASE_URL}/jobs/search?jobTitle=${jobTitle}`
           );
+        } else if (category) {
+          response = await axios.get(
+            `${process.env.REACT_APP_API_BASE_URL}/jobs/filter?category=${category}`
+          );
         } else {
           response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/jobs`);
         }
+
         setJobs(response.data);
         console.log(response.data);
       } catch (error) {
@@ -27,13 +35,8 @@ export default function Jobs() {
       }
     };
 
-    const jobTitle = searchParams.get("jobTitle");
-    fetchJobs(jobTitle);
-
-    if (jobTitle) {
-      navigate(`/jobs/search?jobTitle=${jobTitle}`);
-    }
-  }, [searchParams, navigate]);
+    fetchData();
+  }, [searchParams]);
 
   return (
     <div className="jobs-board">

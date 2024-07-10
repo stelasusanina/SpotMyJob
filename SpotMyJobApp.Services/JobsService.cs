@@ -18,6 +18,30 @@ namespace SpotMyJobApp.Services
 			this.context = context;
 		}
 
+		public async Task<IEnumerable<ShortJobOfferDto>> FilterByCategoryAsync(string category)
+		{
+			if (category == null)
+			{
+				return null;
+			}
+
+			var jobsByCategory = await context.JobOffers
+				.Where(jo => jo.JobCategory.Name.ToLower() == category.ToLower())
+				.Select(jo => new ShortJobOfferDto
+				{
+					Id = jo.Id,
+					Title = jo.Title,
+					PostedOn = jo.PostedOn,
+					City = jo.City,
+					Country = jo.Country,
+					CompanyImgUrl = jo.CompanyImgUrl,
+					IsFullTime = jo.IsFullTime,
+					JobCategory = jo.JobCategory.Name
+				}).ToListAsync();
+
+			return jobsByCategory;
+		}
+
 		public async Task<IEnumerable<ShortJobOfferDto>> GetAllJobsAsync()
 		{
 			var jobs = await context.JobOffers.Select(jo => new ShortJobOfferDto

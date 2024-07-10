@@ -53,5 +53,18 @@ namespace SpotMyJobApp.Controllers
 
 			return Ok(jobsBySearch);
 		}
+
+		[HttpGet("filter")]
+		public async Task<ActionResult<IEnumerable<ShortJobOfferDto>>> FilterByCategory([FromQuery] string category)
+		{
+			var filteredJobs = await jobsService.FilterByCategoryAsync(category);
+
+			if(filteredJobs == null)
+			{
+				return BadRequest();
+			}
+
+			return Ok(filteredJobs);
+		}
 	}
 }
