@@ -20,14 +20,8 @@ export default function Navbar() {
     marginBottom: activePath === "/" ? "0px" : "20px",
   };
 
-  const notify = () =>
-    toast(<span>You have successfully logged out!</span>, {
-      className: "--toastify-color-success",
-    });
-
   const logoutUser = () => {
     logout();
-    notify();
     navigate("/");
   };
 
