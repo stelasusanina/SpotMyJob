@@ -1,7 +1,7 @@
-import { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Cookies from "js-cookie";
-import { toast } from "react-toastify"; 
+import axiosClient from "../shared/axiosClient";
 
 const AuthContext = createContext();
 
@@ -27,29 +27,30 @@ export function AuthProvider(props) {
       }
     );
 
-    const notifyLogout = () =>
-      toast(<span>You have successfully logged out!</span>, {
-        className: "--toastify-color-success",
-      });
+  const notifyLogout = () =>
+    toast(<span>You have successfully logged out!</span>, {
+      className: "--toastify-color-success",
+    });
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const cookieValue = Cookies.get(".AspNetCore.Identity.Application");
-      if (cookieValue) {
-        try {
-          setIsLoggedIn(true);
-        } catch (error) {
-          setIsLoggedIn(false);
-        }
+  useEffect(async () => {
+    const cookie = Cookies.get(".AspNetCore.Identity.Application");
+    if (cookie) {
+      try {
+        const response = await axiosClient.get(
+          `${process.env.REACT_APP_API_BASE_URL}/auth/identify`
+        );
+        setIsLoggedIn(true);
+        setUser();
+      } catch (error) {
+        setIsLoggedIn(false);
+        setUser(null);
       }
-    };
-    
-    fetchUser();
+    }
   }, []);
 
   const login = async (userData) => {
     try {
-      const response = await axios.post(
+      const response = await axiosClient.post(
         `${process.env.REACT_APP_API_BASE_URL}/auth/login`,
         userData,
         { withCredentials: true }
@@ -57,7 +58,7 @@ export function AuthProvider(props) {
 
       if (response.status === 200) {
         notifyLogin(response.data.firstName, response.data.lastName);
-        setUser(response.data); 
+        setUser(response.data);
         setIsLoggedIn(true);
         return response.data;
       }
@@ -73,7 +74,7 @@ export function AuthProvider(props) {
 
   const logout = async () => {
     try {
-      const response = await axios.post(
+      const response = await axiosClient.post(
         `${process.env.REACT_APP_API_BASE_URL}/auth/logout`,
         {},
         { withCredentials: true }
