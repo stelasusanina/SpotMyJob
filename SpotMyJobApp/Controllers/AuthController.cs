@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SpotMyJobApp.Data.Models;
 using SpotMyJobApp.Services.Contracts;
 using SpotMyJobApp.Services.Dtos;
+using System.Security.Claims;
 
 namespace SpotMyJobApp.Controllers
 {
@@ -32,7 +33,7 @@ namespace SpotMyJobApp.Controllers
 			if (result.Succeeded)
 			{
 				var user = await userManager.FindByEmailAsync(model.Email);
-				return Ok(new { message = "User registered successfully", user.FirstName, user.LastName });
+				return Ok(new { message = "User registered successfully", user.FirstName, user.LastName, user.Id});
 			}
 
 			return BadRequest(result.Errors);
@@ -51,7 +52,7 @@ namespace SpotMyJobApp.Controllers
 			if (result.Succeeded)
 			{
 				var user = await userManager.FindByEmailAsync(model.Email);
-				return Ok(new { message = "Login successful", user.FirstName, user.LastName });
+				return Ok(new { message = "Login successful", user.FirstName, user.LastName, user.Id });
 			}
 
 			return Unauthorized(new { message = "Invalid login attempt" });
@@ -62,6 +63,14 @@ namespace SpotMyJobApp.Controllers
 		{
 			await authService.LogoutAsync();
 			return Ok(new { message = "Logout successful" });
+		}
+
+		[HttpGet("identify")]
+		public IActionResult Identify()
+		{
+			var username = User.Identity.Name;
+
+			return Ok(new { username });
 		}
 
 		[HttpGet("access-denied")]
