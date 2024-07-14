@@ -2,18 +2,20 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./SingleJobOffer.css";
+import FileUpload from "../../components/fileUpload/FileUpload";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function SingleJobOffer() {
     const { jobId } = useParams();
     const [job, setJob] = useState(null);
+    const [hasApplied, setHasApplied] = useState(false);
+    const { user } = useAuth();
 
     useEffect(() => {
         const fetchJob = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/jobs/${jobId}`);
-                const data = await response.data;
-                setJob(data);
-                console.log(data);
+                setJob(response.data);
             } catch (error) {
                 console.error("Error fetching job:", error);
             }
@@ -21,6 +23,27 @@ export default function SingleJobOffer() {
 
         fetchJob();
     }, [jobId]);
+
+    useEffect(() => {
+      const checkIfUserApplied = async () => {
+        try {
+          const response = await axios.get(
+            `${process.env.REACT_APP_API_BASE_URL}/jobs/${jobId}/hasApplied`,
+            {
+              headers: {
+                userId: user.id,
+              },
+            }
+          );
+          setHasApplied(response.data.hasApplied);
+        } catch (error) {
+          console.error("Failed to check if user has applied:", error);
+        }
+      };
+
+        checkIfUserApplied();
+      
+    }, [jobId, user]);
 
     return (
       <div>
@@ -95,6 +118,10 @@ export default function SingleJobOffer() {
               ))}
             </div>
             <p>Does it sound like the perfect job for you? Apply now!</p>
+            <FileUpload
+              jobId={jobId}
+              hasApplied={hasApplied}
+            />
           </div>
         )}
       </div>

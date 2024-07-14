@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import JobOffer from "../../components/jobOffer/JobOffer";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import "./Jobs.css";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   useEffect(() => {

@@ -13,7 +13,7 @@ const schema = yup.object().shape({
 });
 
 export default function LoginForm() {
-  const { login } = useAuth();
+  const { login, setUser } = useAuth();
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -26,6 +26,7 @@ export default function LoginForm() {
       try {
         const response = await login(values);
         if (response) {
+          setUser(response.id);
           navigate("/");
         }
       } catch (error) {

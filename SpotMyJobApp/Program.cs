@@ -33,8 +33,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 	options.SlidingExpiration = true; 
 });
 
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-	.AddCookie();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 
 builder.Services.Configure<IdentityOptions>(options =>
 {

@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using SpotMyJobApp.Data;
+using SpotMyJobApp.Data.Data.Models;
 using SpotMyJobApp.Services.Contracts;
 using SpotMyJobApp.Services.Dtos;
 using System;
@@ -7,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Azure.Core.HttpHeader;
 
 namespace SpotMyJobApp.Services
 {
@@ -111,6 +115,35 @@ namespace SpotMyJobApp.Services
 				}).ToListAsync();
 
 			return jobsBySearch;
+		}
+
+		public async Task<string> ApplyToJobAsync(int jobId,string userId, IFormFile IFormFile)
+		{
+			var job = await context.JobOffers.FindAsync(jobId);
+			if (job == null)
+			{
+				return null;
+			}
+
+			var fileName = Path.GetFileName(IFormFile.FileName);
+
+			var jobApplication = new JobApplication
+			{
+				JobOfferId = jobId,
+				ApplicationUserId = userId,
+				Status = "Applied",
+				UploadedFileName = fileName
+			};
+
+			context.JobsApplications.Add(jobApplication);
+			await context.SaveChangesAsync();
+			return "";
+		}
+
+		public async Task<bool> HasUserAppliedAsync(int jobId, string userId)
+		{
+			return await context.JobsApplications
+								.AnyAsync(ja => ja.JobOfferId == jobId && ja.ApplicationUserId == userId);
 		}
 	}
 }

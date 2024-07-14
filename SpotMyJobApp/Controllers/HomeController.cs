@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SpotMyJobApp.Services;
 using SpotMyJobApp.Services.Contracts;
 using SpotMyJobApp.Services.Dtos;
+using System.Security.Claims;
 
 namespace SpotMyJobApp.Controllers
 {

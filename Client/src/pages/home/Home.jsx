@@ -7,7 +7,6 @@ export default function Home() {
   return (
     <div className="container w-full">
       <div className="search-section">
-        {" "}
         <SearchBar />
       </div>
       <CategoriesBlock />

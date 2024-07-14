@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SpotMyJobApp.Data.Models;
 using SpotMyJobApp.Services.Contracts;
 using SpotMyJobApp.Services.Dtos;
+using System.Security.Claims;
 
 namespace SpotMyJobApp.Controllers
 {
@@ -10,9 +13,11 @@ namespace SpotMyJobApp.Controllers
 	public class JobsController : ControllerBase
 	{
 		private readonly IJobsService jobsService;
-		public JobsController(IJobsService jobsService)
+		private readonly UserManager<ApplicationUser> userManager;
+		public JobsController(IJobsService jobsService, UserManager<ApplicationUser> userManager)
 		{
 			this.jobsService = jobsService;
+			this.userManager = userManager;
 		}
 
 		[HttpGet]
@@ -42,7 +47,7 @@ namespace SpotMyJobApp.Controllers
 		}
 
 		[HttpGet("search")]
-		public async Task<ActionResult<IEnumerable<ShortJobOfferDto>>> SearchJobs([FromQuery]string jobTitle)
+		public async Task<ActionResult<IEnumerable<ShortJobOfferDto>>> SearchJobs([FromQuery] string jobTitle)
 		{
 			var jobsBySearch = await jobsService.SearchJobsAsync(jobTitle);
 
@@ -59,12 +64,32 @@ namespace SpotMyJobApp.Controllers
 		{
 			var filteredJobs = await jobsService.FilterByCategoryAsync(category);
 
-			if(filteredJobs == null)
+			if (filteredJobs == null)
 			{
 				return BadRequest();
 			}
 
 			return Ok(filteredJobs);
+		}
+
+		[HttpPost("{jobId}")]
+		public async Task<IActionResult> ApplyToJob(int jobId, [FromForm] string userId, [FromForm] IFormFile file)
+		{
+			if (file == null || file.Length == 0)
+			{
+				{
+					return BadRequest("No file uploaded.");
+				}
+			}
+			var result = await jobsService.ApplyToJobAsync(jobId, userId, file);
+			return Ok();
+		}
+
+		[HttpGet("{jobId}/hasApplied")]
+		public async Task<IActionResult> HasUserApplied(int jobId, [FromHeader(Name = "userId")] string userId)
+		{
+			var hasApplied = await jobsService.HasUserAppliedAsync(jobId, userId);
+			return Ok(new { hasApplied });
 		}
 	}
 }

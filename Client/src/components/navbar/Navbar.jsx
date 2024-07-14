@@ -3,14 +3,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../photos/logo.jpg";
 import { useAuth } from "../../contexts/AuthContext";
-import { toast } from "react-toastify";
 import "../../shared/ToastifyStyles.css";
 
 export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [activePath, setActivePath] = useState(location.pathname);
-  const { isLoggedIn, logout } = useAuth();
+  const { logout, isLoggedIn } = useAuth();
 
   useEffect(() => {
     setActivePath(location.pathname);

@@ -16,10 +16,13 @@ namespace SpotMyJobApp.Data.Data.Models
         public JobOffer JobOffer { get; set; } = null!;
 
         [ForeignKey(nameof(ApplicationUser))]
-        public string ApplicationUserId { get; set; }
+        public string ApplicationUserId { get; set; } = null!;
         public ApplicationUser Applicant { get; set; } = null!;
 
         [Required]
         public string Status { get; set; } = null!;
+
+        [Required]
+        public string UploadedFileName { get; set; } = null!;
 	}
 }
