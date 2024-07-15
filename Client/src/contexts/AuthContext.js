@@ -91,6 +91,21 @@ export function AuthProvider(props) {
     }
   };
 
+  const identify = async () => {
+    if (user) {
+      return user; 
+    }
+    try {
+      const response = await axiosClient.get(
+        `${process.env.REACT_APP_API_BASE_URL}/auth/identify`
+      );
+      setUser(response.data.userId);
+      return response.data.userId;
+    } catch (error) {
+      console.error("Identify failed:", error);
+    }
+  };
+
   const value = {
     user,
     setUser,
@@ -98,6 +113,7 @@ export function AuthProvider(props) {
     setIsLoggedIn,
     login,
     logout,
+    identify
   };
 
   return (

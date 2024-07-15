@@ -68,9 +68,9 @@ namespace SpotMyJobApp.Controllers
 		[HttpGet("identify")]
 		public IActionResult Identify()
 		{
-			var username = User.Identity.Name;
+			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-			return Ok(new { username });
+			return Ok(new { userId });
 		}
 
 		[HttpGet("access-denied")]

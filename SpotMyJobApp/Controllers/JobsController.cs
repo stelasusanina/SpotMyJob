@@ -73,21 +73,31 @@ namespace SpotMyJobApp.Controllers
 		}
 
 		[HttpPost("{jobId}")]
-		public async Task<IActionResult> ApplyToJob(int jobId, [FromForm] string userId, [FromForm] IFormFile file)
+		public async Task<IActionResult> ApplyToJob([FromForm] int jobId, [FromForm] string userId, [FromForm] IFormFile file)
 		{
 			if (file == null || file.Length == 0)
 			{
-				{
-					return BadRequest("No file uploaded.");
-				}
+				return BadRequest("No file uploaded.");
 			}
 			var result = await jobsService.ApplyToJobAsync(jobId, userId, file);
-			return Ok();
+
+			if (!result)
+			{
+				return NotFound("Application failed.");
+			}
+
+			return Ok("Application successful.");
 		}
 
 		[HttpGet("{jobId}/hasApplied")]
-		public async Task<IActionResult> HasUserApplied(int jobId, [FromHeader(Name = "userId")] string userId)
+		public async Task<IActionResult> HasUserApplied(int jobId)
 		{
+			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			if (userId == null)
+			{
+				return BadRequest();
+			}
+
 			var hasApplied = await jobsService.HasUserAppliedAsync(jobId, userId);
 			return Ok(new { hasApplied });
 		}

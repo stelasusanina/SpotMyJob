@@ -1,9 +1,9 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./SingleJobOffer.css";
 import FileUpload from "../../components/fileUpload/FileUpload";
 import { useAuth } from "../../contexts/AuthContext";
+import axiosClient from "../../shared/axiosClient";
 
 export default function SingleJobOffer() {
     const { jobId } = useParams();
@@ -14,35 +14,31 @@ export default function SingleJobOffer() {
     useEffect(() => {
         const fetchJob = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/jobs/${jobId}`);
+                const response = await axiosClient.get(`${process.env.REACT_APP_API_BASE_URL}/jobs/${jobId}`);
                 setJob(response.data);
             } catch (error) {
                 console.error("Error fetching job:", error);
             }
         };
 
-        fetchJob();
-    }, [jobId]);
+        const hasAppliedToThisJob = async () => {
+            try {
+                const response = await axiosClient.get(
+                  `${process.env.REACT_APP_API_BASE_URL}/jobs/${jobId}/hasApplied`
+                );
 
-    useEffect(() => {
-      const checkIfUserApplied = async () => {
-        try {
-          const response = await axios.get(
-            `${process.env.REACT_APP_API_BASE_URL}/jobs/${jobId}/hasApplied`,
-            {
-              headers: {
-                userId: user.id,
-              },
+                setHasApplied(response.data.hasApplied);
+                return response.data.hasApplied;
+            } catch (error) {
+              console.error(
+                "Error checking if user has applied to this job:",
+                error
+              );
             }
-          );
-          setHasApplied(response.data.hasApplied);
-        } catch (error) {
-          console.error("Failed to check if user has applied:", error);
         }
-      };
 
-        checkIfUserApplied();
-      
+        fetchJob();
+        hasAppliedToThisJob();
     }, [jobId, user]);
 
     return (

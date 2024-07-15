@@ -117,12 +117,12 @@ namespace SpotMyJobApp.Services
 			return jobsBySearch;
 		}
 
-		public async Task<string> ApplyToJobAsync(int jobId,string userId, IFormFile IFormFile)
+		public async Task<bool> ApplyToJobAsync(int jobId,string userId, IFormFile IFormFile)
 		{
 			var job = await context.JobOffers.FindAsync(jobId);
 			if (job == null)
 			{
-				return null;
+				return false;
 			}
 
 			var fileName = Path.GetFileName(IFormFile.FileName);
@@ -135,9 +135,10 @@ namespace SpotMyJobApp.Services
 				UploadedFileName = fileName
 			};
 
-			context.JobsApplications.Add(jobApplication);
+			await context.JobsApplications.AddAsync(jobApplication);
 			await context.SaveChangesAsync();
-			return "";
+
+			return true;
 		}
 
 		public async Task<bool> HasUserAppliedAsync(int jobId, string userId)
