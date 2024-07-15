@@ -7,6 +7,7 @@ import Register from "./pages/register/Register";
 import { ToastContainer } from "react-toastify";
 import Jobs from "./pages/jobs/Jobs";
 import SingleJobOffer from "./pages/singleJobOffer/SingleJobOffer";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function App() {
   return (

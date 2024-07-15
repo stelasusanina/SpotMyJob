@@ -3,6 +3,7 @@ import axios from "axios";
 import JobOffer from "../../components/jobOffer/JobOffer";
 import { useSearchParams } from "react-router-dom";
 import "./Jobs.css";
+import SearchBar from "../../components/searchBar/SearchBar";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
@@ -39,6 +40,7 @@ export default function Jobs() {
 
   return (
     <div className="jobs-board">
+      <SearchBar className={"jobs"}/>
       {jobs.map((job) => (
         <JobOffer
           key={job.id}
