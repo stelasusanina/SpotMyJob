@@ -4,7 +4,6 @@ import * as yup from "yup";
 import axios from "axios";
 import "../shared/LoginRegisterForm.css";
 import { useAuth } from "../../contexts/AuthContext";
-import { toast } from "react-toastify";
 import "../../shared/ToastifyStyles.css";
 import { useNavigate } from "react-router-dom";
 
@@ -41,20 +40,6 @@ export default function RegisterForm() {
   const {login} = useAuth();
   const navigate = useNavigate();
 
-  const notify = (firstName, lastName) => {
-    toast(
-      <span>
-        You have successfully registered,{" "}
-        <span className="names">
-          {firstName} {lastName}!
-        </span>
-      </span>,
-      {
-        className: "--toastify-color-success",
-      }
-    );
-  }
-
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -72,9 +57,14 @@ export default function RegisterForm() {
           values
         );
 
+        console.log(response.data);
+
         if (response.status === 200) {
-          notify(response.data.firstName, response.data.lastName);
-          login(response.data);
+          await login({
+            email: values.email,
+            password: values.password,
+          });
+
           navigate("/");
         }
         else{
