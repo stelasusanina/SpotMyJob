@@ -1,0 +1,24 @@
+.sidebar{
+    width: 30%;
+    margin: 0px 0px 15px 15px;
+    background: linear-gradient(to top, rgba(162, 4, 253, 0.47), rgba(250, 197, 7, 0.47));
+    height: max-content;
+    border-radius: 10px;
+    padding: 10px;
+    position: sticky;
+    top: 10px;
+}
+
+.sidebar-filter-section div{
+    display: flex;
+    align-items: center;
+    height: 25px;
+}
+
+.sidebar-filter-section div label{
+    margin-left: 5px;
+}
+
+.sidebar-filter-section h4{
+    margin: 0;
+}

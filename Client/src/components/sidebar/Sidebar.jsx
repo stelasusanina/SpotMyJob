@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import axiosClient from "../../shared/axiosClient";
+import "./Sidebar.css";
 
 export default function Sidebar() {
   const [categories, setCategories] = useState([]);
@@ -94,9 +95,8 @@ export default function Sidebar() {
 
   return (
     <div className="sidebar">
-      <h2>Filters</h2>
       <div className="sidebar-filter-section">
-        <h3>Categories</h3>
+        <h4>Categories</h4>
         {categories.length > 0 ? (
           categories.map((category) => (
             <div key={category.id}>
@@ -115,7 +115,7 @@ export default function Sidebar() {
         )}
       </div>
       <div className="sidebar-filter-section">
-        <h3>Countries</h3>
+        <h4>Countries</h4>
         {countries.length > 0 ? (
           countries.map((country, index) => (
             <div key={index}>

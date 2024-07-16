@@ -46,25 +46,27 @@ export default function Jobs() {
         <SearchBar className={"jobs"} />
         <OrderBy setJobs={setJobs} />
       </div>
-      <div>
+      <div className="sidebar-jobs">
         <Sidebar />
-        {Array.isArray(jobs) && jobs.length > 0 ? (
-          jobs.map((job) => (
-            <JobOffer
-              key={job.id}
-              id={job.id}
-              title={job.title}
-              companyName={job.companyName}
-              companyImgUrl={job.companyImgUrl}
-              country={job.country}
-              city={job.city}
-              postedOn={job.postedOn}
-              isFullTime={job.isFullTime}
-            />
-          ))
-        ) : (
-          <p>No jobs found for the selected filters.</p>
-        )}
+        <div className="jobs-list">
+          {Array.isArray(jobs) && jobs.length > 0 ? (
+            jobs.map((job) => (
+              <JobOffer
+                key={job.id}
+                id={job.id}
+                title={job.title}
+                companyName={job.companyName}
+                companyImgUrl={job.companyImgUrl}
+                country={job.country}
+                city={job.city}
+                postedOn={job.postedOn}
+                isFullTime={job.isFullTime}
+              />
+            ))
+          ) : (
+            <p>No jobs found for the selected filters.</p>
+          )}
+        </div>
       </div>
     </div>
   );

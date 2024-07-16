@@ -1,10 +1,3 @@
-.jobs-board{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
 .search-bar-input{
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     padding: 0;
@@ -22,4 +15,14 @@
     justify-content: center;
     gap: 50px;
     align-items: baseline;
+}
+
+.sidebar-jobs{
+    display: flex;
+}
+
+.jobs-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
