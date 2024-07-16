@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axiosClient from "../../shared/axiosClient";
+import "./OrderBy.css";
 
 export default function OrderBy({ setJobs }) {
   const [order, setOrder] = useState("TitleAscending");

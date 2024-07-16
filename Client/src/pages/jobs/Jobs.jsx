@@ -42,8 +42,10 @@ export default function Jobs() {
 
   return (
     <div className="jobs-board">
-      <SearchBar className={"jobs"} />
-      <OrderBy setJobs={setJobs}/>
+      <div className="search-order">
+        <SearchBar className={"jobs"} />
+        <OrderBy setJobs={setJobs} />
+      </div>
       <div>
         <Sidebar />
         {Array.isArray(jobs) && jobs.length > 0 ? (

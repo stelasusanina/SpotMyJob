@@ -101,6 +101,7 @@ export default function Sidebar() {
           categories.map((category) => (
             <div key={category.id}>
               <input
+                className="sidebar-checkbox"
                 type="checkbox"
                 name={`category-${category.id}`}
                 checked={selectedCategories.includes(category.name)}
@@ -119,6 +120,7 @@ export default function Sidebar() {
           countries.map((country, index) => (
             <div key={index}>
               <input
+                className="sidebar-checkbox"
                 type="checkbox"
                 name={`country-${index}`}
                 checked={selectedCountries.includes(country)}

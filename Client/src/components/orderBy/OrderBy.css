@@ -1,0 +1,16 @@
+select{
+    color: #a204fd7e;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-size: 16px;
+    padding: 10px 0px 10px 10px;
+    border-radius: 50px;
+    border-right: 10px solid transparent;
+}
+
+select:focus{
+    border: none;
+    outline: 0;    
+    border-right: 10px solid transparent
+}

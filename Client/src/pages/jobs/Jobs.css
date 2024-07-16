@@ -15,3 +15,11 @@
 .search-bar-input:focus{
     box-shadow: #a204fd7e 0px 1px 4px;   
 }
+
+.search-order{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 50px;
+    align-items: baseline;
+}
