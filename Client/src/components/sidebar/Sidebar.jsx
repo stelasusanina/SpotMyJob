@@ -92,18 +92,6 @@ export default function Sidebar() {
     }
   };
 
-  const handleJobTitleChange = (event) => {
-    const value = event.target.value;
-    setJobTitle(value);
-    const params = new URLSearchParams(searchParams);
-    if (value.trim() !== "") {
-      params.set("jobTitle", value.trim());
-    } else {
-      params.delete("jobTitle");
-    }
-    setSearchParams(params);
-  };
-
   return (
     <div className="sidebar">
       <h2>Filters</h2>
@@ -142,15 +130,6 @@ export default function Sidebar() {
         ) : (
           <p>No countries available</p>
         )}
-      </div>
-      <div className="sidebar-filter-section">
-        <h3>Job Title</h3>
-        <input
-          type="text"
-          placeholder="Search by job title"
-          value={jobTitle}
-          onChange={handleJobTitleChange}
-        />
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ namespace SpotMyJobApp.Services.Dtos
 	{
         public string? Category { get; set; }
 		public string? Country { get; set; }
-		public string? JobTitle { get; set; }
+		public string? JobTitle { get; set;}
+		public string? OrderBy { get; set;}
     }
 }

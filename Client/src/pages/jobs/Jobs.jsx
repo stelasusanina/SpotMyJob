@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import "./Jobs.css";
 import SearchBar from "../../components/searchBar/SearchBar";
 import Sidebar from "../../components/sidebar/Sidebar";
+import OrderBy from "../../components/orderBy/OrderBy";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
@@ -42,6 +43,7 @@ export default function Jobs() {
   return (
     <div className="jobs-board">
       <SearchBar className={"jobs"} />
+      <OrderBy setJobs={setJobs}/>
       <div>
         <Sidebar />
         {Array.isArray(jobs) && jobs.length > 0 ? (

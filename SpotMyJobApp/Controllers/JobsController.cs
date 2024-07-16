@@ -28,7 +28,7 @@ namespace SpotMyJobApp.Controllers
 		{
 			IEnumerable<ShortJobOfferDto> jobs;
 
-			if (query.Category == null && query.Country == null && query.JobTitle == null)
+			if (query.Category == null && query.Country == null && query.JobTitle == null && query.OrderBy == null)
 			{
 				jobs = await jobsService.GetAllJobsAsync();
 			}

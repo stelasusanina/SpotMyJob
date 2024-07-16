@@ -36,6 +36,28 @@ namespace SpotMyJobApp.Services
 				jobs = jobs.Where(j => j.Title.ToLower().Contains(query.JobTitle.ToLower()));
 			}
 
+			if (!string.IsNullOrEmpty(query.OrderBy))
+			{
+				switch (query.OrderBy)
+				{
+					case "TitleAscending":
+						jobs = jobs.OrderBy(j => j.Title);
+						break;
+					case "TitleDescending":
+						jobs = jobs.OrderByDescending(j => j.Title);
+						break;
+					case "NewerDate":
+						jobs = jobs.OrderByDescending(j => j.PostedOn);
+						break;
+					case "OlderDate":
+						jobs = jobs.OrderBy(j => j.PostedOn);
+						break;
+					default:
+						jobs = jobs.OrderBy(j => j.Title);
+						break;
+				}
+			}
+
 			var filteredJobs = await jobs.Select(jo => new ShortJobOfferDto
 			{
 				Id = jo.Id,
