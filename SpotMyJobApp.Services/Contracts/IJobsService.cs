@@ -12,9 +12,9 @@ namespace SpotMyJobApp.Services.Contracts
 	{
 		Task<IEnumerable<ShortJobOfferDto>> GetAllJobsAsync();
 		Task<JobOfferDto> GetJobDetailsAsync(int jobId);
-		Task<IEnumerable<ShortJobOfferDto>> SearchJobsAsync(string jobTitle);
-		Task<IEnumerable<ShortJobOfferDto>> FilterByCategoryAsync (string category);
+		Task<IEnumerable<ShortJobOfferDto>> FilterJobsAsync(QueryModel query);
 		Task<bool> ApplyToJobAsync(int jobId, string userId, IFormFile IFormFile);
 		Task<bool> HasUserAppliedAsync(int jobId, string userId);
+		Task<IEnumerable<string>> GetAllCountriesAsync();
 	}
 }

@@ -1,16 +1,9 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using SpotMyJobApp.Data;
 using SpotMyJobApp.Data.Data.Models;
 using SpotMyJobApp.Services.Contracts;
 using SpotMyJobApp.Services.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Azure.Core.HttpHeader;
 
 namespace SpotMyJobApp.Services
 {
@@ -22,28 +15,40 @@ namespace SpotMyJobApp.Services
 			this.context = context;
 		}
 
-		public async Task<IEnumerable<ShortJobOfferDto>> FilterByCategoryAsync(string category)
+		public async Task<IEnumerable<ShortJobOfferDto>> FilterJobsAsync(QueryModel query)
 		{
-			if (category == null)
+			var jobs = context.JobOffers.AsQueryable();
+
+			if (!string.IsNullOrEmpty(query.Category))
 			{
-				return null;
+				var categories = query.Category.Split(',').Select(c => c.Trim());
+				jobs = jobs.Where(j => categories.Any(category => j.JobCategory.Name.Contains(category)));
 			}
 
-			var jobsByCategory = await context.JobOffers
-				.Where(jo => jo.JobCategory.Name.ToLower() == category.ToLower())
-				.Select(jo => new ShortJobOfferDto
-				{
-					Id = jo.Id,
-					Title = jo.Title,
-					PostedOn = jo.PostedOn,
-					City = jo.City,
-					Country = jo.Country,
-					CompanyImgUrl = jo.CompanyImgUrl,
-					IsFullTime = jo.IsFullTime,
-					JobCategory = jo.JobCategory.Name
-				}).ToListAsync();
+			if (!string.IsNullOrEmpty(query.Country))
+			{
+				var countries = query.Country.Split(',').Select(c => c.Trim());
+				jobs = jobs.Where(j => countries.Any(country => j.Country.Contains(country)));
+			}
 
-			return jobsByCategory;
+			if (!string.IsNullOrEmpty(query.JobTitle))
+			{
+				jobs = jobs.Where(j => j.Title.ToLower().Contains(query.JobTitle.ToLower()));
+			}
+
+			var filteredJobs = await jobs.Select(jo => new ShortJobOfferDto
+			{
+				Id = jo.Id,
+				Title = jo.Title,
+				PostedOn = jo.PostedOn,
+				City = jo.City,
+				Country = jo.Country,
+				CompanyImgUrl = jo.CompanyImgUrl,
+				IsFullTime = jo.IsFullTime,
+				JobCategory = jo.JobCategory.Name
+			}).ToListAsync();
+
+			return filteredJobs;
 		}
 
 		public async Task<IEnumerable<ShortJobOfferDto>> GetAllJobsAsync()
@@ -94,30 +99,7 @@ namespace SpotMyJobApp.Services
 			return job;
 		}
 
-		public async Task<IEnumerable<ShortJobOfferDto>> SearchJobsAsync(string jobTitle)
-		{
-			if (jobTitle == null)
-			{
-				return null;
-			}
-
-			var jobsBySearch = await context.JobOffers.Where(jo => jo.Title.ToLower().Contains(jobTitle.ToLower()))
-				.Select(jo => new ShortJobOfferDto
-				{
-					Id = jo.Id,
-					Title = jo.Title,
-					PostedOn = jo.PostedOn,
-					City = jo.City,
-					Country = jo.Country,
-					CompanyImgUrl = jo.CompanyImgUrl,
-					IsFullTime = jo.IsFullTime,
-					JobCategory = jo.JobCategory.Name
-				}).ToListAsync();
-
-			return jobsBySearch;
-		}
-
-		public async Task<bool> ApplyToJobAsync(int jobId,string userId, IFormFile IFormFile)
+		public async Task<bool> ApplyToJobAsync(int jobId, string userId, IFormFile IFormFile)
 		{
 			var job = await context.JobOffers.FindAsync(jobId);
 			if (job == null)
@@ -145,6 +127,15 @@ namespace SpotMyJobApp.Services
 		{
 			return await context.JobsApplications
 								.AnyAsync(ja => ja.JobOfferId == jobId && ja.ApplicationUserId == userId);
+		}
+
+		public async Task<IEnumerable<string>> GetAllCountriesAsync()
+		{
+			var countries = await context.JobOffers.Select(jo => jo.Country)
+				.Distinct()
+				.ToListAsync();
+
+			return countries;
 		}
 	}
 }
