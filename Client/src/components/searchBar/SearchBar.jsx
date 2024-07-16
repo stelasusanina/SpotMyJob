@@ -11,7 +11,7 @@ export default function SearchBar({className}) {
   };
 
   const handleSearch = async () => {
-    navigate(`/jobs/search?jobTitle=${input}`); 
+    navigate(`/jobs?jobTitle=${input}`); 
   };
 
   return (

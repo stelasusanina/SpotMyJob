@@ -26,7 +26,7 @@ export default function CategoriesBlock() {
     <div className="categories-block">
       {categories.map((category) => (
         <Link
-          to={`jobs/filter?category=${category.name}`}
+          to={`jobs?category=${category.name}`}
           className="category-box"
           key={category.id}>
           <img src={category.imageUrl} alt={category.name} />

@@ -4,34 +4,35 @@ import JobOffer from "../../components/jobOffer/JobOffer";
 import { useSearchParams } from "react-router-dom";
 import "./Jobs.css";
 import SearchBar from "../../components/searchBar/SearchBar";
+import Sidebar from "../../components/sidebar/Sidebar";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState([]);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     const fetchData = async () => {
+      const jobTitle = searchParams.get("jobTitle");
+      const category = searchParams.get("category");
+      const country = searchParams.get("country");
+
       try {
-        let response;
-        const jobTitle = searchParams.get("jobTitle");
-        const category = searchParams.get("category");
-
-        if (jobTitle) {
-          response = await axios.get(
-            `${process.env.REACT_APP_API_BASE_URL}/jobs/search?jobTitle=${jobTitle}`
-          );
-        } else if (category) {
-          response = await axios.get(
-            `${process.env.REACT_APP_API_BASE_URL}/jobs/filter?category=${category}`
-          );
-        } else {
-          response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/jobs`);
-        }
-
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/jobs`,
+          {
+            params: { category, country, jobTitle },
+          }
+        );
         setJobs(response.data);
-        console.log(response.data);
       } catch (error) {
-        console.error("Error fetching jobs:", error);
+        if (error.response && error.response.status === 404) {
+          setJobs([]);
+        } else {
+          console.log(
+            "An error occurred while fetching jobs. Please try again later.",
+            error
+          );
+        }
       }
     };
 
@@ -40,20 +41,27 @@ export default function Jobs() {
 
   return (
     <div className="jobs-board">
-      <SearchBar className={"jobs"}/>
-      {jobs.map((job) => (
-        <JobOffer
-          key={job.id}
-          id={job.id}
-          title={job.title}
-          companyName={job.companyName}
-          companyImgUrl={job.companyImgUrl}
-          country={job.country}
-          city={job.city}
-          postedOn={job.postedOn}
-          isFullTime={job.isFullTime}
-        />
-      ))}
+      <SearchBar className={"jobs"} />
+      <div>
+        <Sidebar />
+        {Array.isArray(jobs) && jobs.length > 0 ? (
+          jobs.map((job) => (
+            <JobOffer
+              key={job.id}
+              id={job.id}
+              title={job.title}
+              companyName={job.companyName}
+              companyImgUrl={job.companyImgUrl}
+              country={job.country}
+              city={job.city}
+              postedOn={job.postedOn}
+              isFullTime={job.isFullTime}
+            />
+          ))
+        ) : (
+          <p>No jobs found for the selected filters.</p>
+        )}
+      </div>
     </div>
   );
 }
