@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using SpotMyJobApp.Data.Models;
 using SpotMyJobApp.Services.Contracts;
 using SpotMyJobApp.Services.Dtos;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace SpotMyJobApp.Controllers
 {
@@ -21,13 +24,22 @@ namespace SpotMyJobApp.Controllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<ShortJobOfferDto>>> GetAllJobs()
+		public async Task<ActionResult<IEnumerable<ShortJobOfferDto>>> GetJobs([FromQuery] QueryModel query)
 		{
-			var jobs = await jobsService.GetAllJobsAsync();
+			IEnumerable<ShortJobOfferDto> jobs;
 
-			if (jobs == null)
+			if (query.Category == null && query.Country == null && query.JobTitle == null)
 			{
-				return BadRequest();
+				jobs = await jobsService.GetAllJobsAsync();
+			}
+			else
+			{
+				jobs = await jobsService.FilterJobsAsync(query);
+			}
+
+			if (jobs == null || !jobs.Any())
+			{
+				return NotFound("No jobs found.");
 			}
 
 			return Ok(jobs);
@@ -44,32 +56,6 @@ namespace SpotMyJobApp.Controllers
 			}
 
 			return Ok(job);
-		}
-
-		[HttpGet("search")]
-		public async Task<ActionResult<IEnumerable<ShortJobOfferDto>>> SearchJobs([FromQuery] string jobTitle)
-		{
-			var jobsBySearch = await jobsService.SearchJobsAsync(jobTitle);
-
-			if (jobsBySearch == null)
-			{
-				return BadRequest();
-			}
-
-			return Ok(jobsBySearch);
-		}
-
-		[HttpGet("filter")]
-		public async Task<ActionResult<IEnumerable<ShortJobOfferDto>>> FilterByCategory([FromQuery] string category)
-		{
-			var filteredJobs = await jobsService.FilterByCategoryAsync(category);
-
-			if (filteredJobs == null)
-			{
-				return BadRequest();
-			}
-
-			return Ok(filteredJobs);
 		}
 
 		[HttpPost("{jobId}")]
@@ -100,6 +86,19 @@ namespace SpotMyJobApp.Controllers
 
 			var hasApplied = await jobsService.HasUserAppliedAsync(jobId, userId);
 			return Ok(new { hasApplied });
+		}
+
+		[HttpGet("countries")]
+		public async Task<ActionResult<IEnumerable<string>>> GetAllCountries()
+		{
+			var countries = await jobsService.GetAllCountriesAsync();
+
+			if (countries == null || !countries.Any())
+			{
+				return BadRequest("No countries found.");
+			}
+
+			return Ok(countries);
 		}
 	}
 }
