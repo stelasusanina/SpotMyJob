@@ -77,6 +77,42 @@ namespace SpotMyJobApp.Controllers
 			return Ok(new { userId });
 		}
 
+		[HttpGet("profile/userDetails")]
+		public async Task<IActionResult> GetUserDetails(string userId)
+		{
+			if (string.IsNullOrEmpty(userId))
+			{
+				return NotFound("User not found!");
+			}
+
+			var userDetails = await authService.GetUserDetailsAsync(userId);
+
+			if (userDetails == null)
+			{
+				return NotFound("Details not found!");
+			}
+
+			return Ok(userDetails);
+		}
+
+		[HttpGet("profile/jobApplications")]
+		public async Task<IActionResult> GetUsersJobApplications(string userId)
+		{
+			if (string.IsNullOrEmpty(userId))
+			{
+				return NotFound("User not found!");
+			}
+
+			var jobApplications = await authService.GetUsersJobApplicationsAsync(userId);
+
+			if(jobApplications == null)
+			{
+				return NotFound("Job applications not found!");
+			}
+
+			return Ok(jobApplications);
+		}
+
 		[HttpGet("access-denied")]
 		public IActionResult AccessDenied()
 		{

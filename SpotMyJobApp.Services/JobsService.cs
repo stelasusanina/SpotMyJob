@@ -133,7 +133,8 @@ namespace SpotMyJobApp.Services
 				JobOfferId = jobId,
 				ApplicationUserId = userId,
 				Status = "Applied",
-				UploadedFileName = fileName
+				UploadedFileName = fileName,
+				AppliedOn = DateTime.Now,
 			};
 
 			await context.JobsApplications.AddAsync(jobApplication);

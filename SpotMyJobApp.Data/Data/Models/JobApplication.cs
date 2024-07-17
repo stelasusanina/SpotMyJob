@@ -24,5 +24,8 @@ namespace SpotMyJobApp.Data.Data.Models
 
         [Required]
         public string UploadedFileName { get; set; } = null!;
+
+        [Required]
+        public DateTime AppliedOn { get; set; }
 	}
 }
