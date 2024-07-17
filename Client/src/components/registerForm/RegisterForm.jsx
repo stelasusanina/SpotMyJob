@@ -86,6 +86,7 @@ export default function RegisterForm() {
         <div className="form-group">
           <div className="relative">
             <input
+              className="register-login-input"
               name="firstName"
               placeholder="First Name"
               value={formik.values.firstName}
@@ -99,6 +100,7 @@ export default function RegisterForm() {
 
           <div className="relative">
             <input
+              className="register-login-input"
               name="lastName"
               placeholder="Last Name"
               value={formik.values.lastName}
@@ -114,6 +116,7 @@ export default function RegisterForm() {
         <div className="form-group">
           <div className="relative">
             <input
+              className="register-login-input"
               name="phoneNumber"
               placeholder="Phone number"
               value={formik.values.phoneNumber}
@@ -127,6 +130,7 @@ export default function RegisterForm() {
 
           <div className="relative">
             <input
+              className="register-login-input"
               name="email"
               placeholder="Email"
               value={formik.values.email}
@@ -142,6 +146,7 @@ export default function RegisterForm() {
         <div className="form-group">
           <div className="relative">
             <input
+              className="register-login-input"
               name="password"
               placeholder="Password"
               type="password"
@@ -156,6 +161,7 @@ export default function RegisterForm() {
 
           <div className="relative">
             <input
+              className="register-login-input"
               name="confirmPassword"
               placeholder="Confirm Password"
               type="password"
@@ -169,7 +175,9 @@ export default function RegisterForm() {
               )}
           </div>
         </div>
-        <button className="register-form-button" type="submit">Submit</button>
+        <button className="register-form-button" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

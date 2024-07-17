@@ -1,0 +1,6 @@
+.apply-to-job{
+    width: 50%;
+    height: 200px;
+    background-color: blue;
+    display: flex;
+}

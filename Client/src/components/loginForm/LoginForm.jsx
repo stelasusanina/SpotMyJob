@@ -43,6 +43,7 @@ export default function LoginForm() {
       <form onSubmit={formik.handleSubmit}>
         <div className="input-group">
           <input
+            className="register-login-input"
             placeholder="Email"
             type="email"
             name="email"
@@ -57,6 +58,7 @@ export default function LoginForm() {
 
         <div className="input-group">
           <input
+            className="register-login-input"
             type="password"
             placeholder="Password"
             name="password"

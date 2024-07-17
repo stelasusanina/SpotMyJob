@@ -113,7 +113,7 @@ export default function SingleJobOffer() {
                 </div>
               ))}
             </div>
-            <p>Does it sound like the perfect job for you? Apply now!</p>
+            <p className="apply-now-text">Does it sound like the perfect job for you? Apply now!</p>
             <FileUpload
               jobId={jobId}
               hasApplied={hasApplied}
