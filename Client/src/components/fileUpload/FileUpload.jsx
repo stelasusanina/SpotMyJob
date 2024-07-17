@@ -2,10 +2,24 @@ import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import axiosClient from "../../shared/axiosClient";
 import "./FileUpload.css";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
-export default function FileUpload({ jobId, hasApplied }) {
+export default function FileUpload({ jobId, hasApplied, jobTitle, company }) {
   const [file, setFile] = useState(null);
   const { identify } = useAuth();
+  const navigate = useNavigate();
+
+  const notifyApplication = (jobTitle, company) =>
+    toast(
+      <span>
+        You successfully applied for <span className="names">{jobTitle}</span>{" "}
+        at <span className="names">{company}</span>!
+      </span>,
+      {
+        className: "--toastify-color-success",
+      }
+    );
 
   const handleFileChoosing = (event) => {
     setFile(event.target.files[0]);
@@ -15,14 +29,14 @@ export default function FileUpload({ jobId, hasApplied }) {
     const userId = await identify();
 
     const formData = new FormData();
-    formData.append("jobId", jobId);
     formData.append("userId", userId);
     formData.append("file", file);
 
     axiosClient
       .post(`${process.env.REACT_APP_API_BASE_URL}/jobs/${jobId}`, formData)
       .then((response) => {
-        console.log(response.data);
+        notifyApplication(jobTitle, company);
+        navigate("/jobs");
       })
       .catch((error) => {
         console.log(error);
@@ -32,7 +46,7 @@ export default function FileUpload({ jobId, hasApplied }) {
   return (
     <div className="apply-to-job">
       {hasApplied ? (
-        <p>You have already applied to this job. See your applications.</p>
+        <p className="already-applied">You have already applied to this job. See your applications.</p>
       ) : (
         <div>
           <input
@@ -42,12 +56,9 @@ export default function FileUpload({ jobId, hasApplied }) {
             onChange={handleFileChoosing}
           />
           {file && (
-            <div>
-              <p>{file.name}</p>
-              <button className="remove-file" onClick={() => setFile(null)}>
-                X
-              </button>
-            </div>
+            <button className="remove-file" onClick={() => setFile(null)}>
+              X
+            </button>
           )}
           <button
             className="apply"

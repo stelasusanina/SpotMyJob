@@ -69,6 +69,10 @@ namespace SpotMyJobApp.Controllers
 		public IActionResult Identify()
 		{
 			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			if (userId == null)
+			{
+				return NotFound(new { message = "User not found" });
+			}
 
 			return Ok(new { userId });
 		}

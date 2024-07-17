@@ -1,6 +1,45 @@
 .apply-to-job{
     width: 50%;
-    height: 200px;
-    background-color: blue;
     display: flex;
+    justify-content: center;
+}
+
+.apply-to-job div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 50px 0px;
+}
+
+.choose-file{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 16px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.remove-file{
+    background-color: #a204fd;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 50px;
+    border:none;
+    cursor: pointer;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.apply{
+    background-color: white;
+    border: none;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #a204fd;
+    padding: 10px 15px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    font-size: 16px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.apply:disabled{
+    cursor:auto;
 }

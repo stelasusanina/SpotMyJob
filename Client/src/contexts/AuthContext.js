@@ -99,12 +99,19 @@ export function AuthProvider(props) {
       const response = await axiosClient.get(
         `${process.env.REACT_APP_API_BASE_URL}/auth/identify`
       );
+  
+      if (response.status === 404) {
+        console.error("User not found");
+        return null;
+      }
+  
       setUser(response.data.userId);
       return response.data.userId;
     } catch (error) {
       console.error("Identify failed:", error);
+      return null;
     }
-  };
+  };  
 
   const value = {
     user,

@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SpotMyJobApp.Data.Models;
 using SpotMyJobApp.Services.Contracts;
 using SpotMyJobApp.Services.Dtos;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 
 namespace SpotMyJobApp.Controllers
 {
@@ -59,7 +56,8 @@ namespace SpotMyJobApp.Controllers
 		}
 
 		[HttpPost("{jobId}")]
-		public async Task<IActionResult> ApplyToJob([FromForm] int jobId, [FromForm] string userId, [FromForm] IFormFile file)
+		[Authorize]
+		public async Task<IActionResult> ApplyToJob(int jobId, [FromForm] string userId, [FromForm] IFormFile file)
 		{
 			if (file == null || file.Length == 0)
 			{

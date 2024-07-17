@@ -117,6 +117,8 @@ export default function SingleJobOffer() {
             <FileUpload
               jobId={jobId}
               hasApplied={hasApplied}
+              jobTitle={job.title}
+              company={job.companyName}
             />
           </div>
         )}
