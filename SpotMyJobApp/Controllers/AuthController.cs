@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SpotMyJobApp.Data.Data.Models;
 using SpotMyJobApp.Data.Models;
 using SpotMyJobApp.Services.Contracts;
 using SpotMyJobApp.Services.Dtos;
@@ -23,7 +24,7 @@ namespace SpotMyJobApp.Controllers
 		[HttpPost("register")]
 		public async Task<IActionResult> Register(RegisterDto model)
 		{
-			if(!ModelState.IsValid)
+			if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
@@ -33,7 +34,15 @@ namespace SpotMyJobApp.Controllers
 			if (result.Succeeded)
 			{
 				var user = await userManager.FindByEmailAsync(model.Email);
-				return Ok(new { message = "User registered successfully", user.FirstName, user.LastName, user.Id, user.Email});
+
+				if (user != null)
+				{
+					await userManager.AddToRoleAsync(user, Roles.User);
+				}
+
+				var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+				return Ok(new { message = "User registered successfully", user.FirstName, user.LastName, user.Id, user.Email, userRole});
 			}
 
 			return BadRequest(result.Errors);
@@ -42,7 +51,7 @@ namespace SpotMyJobApp.Controllers
 		[HttpPost("login")]
 		public async Task<IActionResult> Login(LoginDto model)
 		{
-			if(!ModelState.IsValid)
+			if (!ModelState.IsValid)
 			{
 				return BadRequest(ModelState);
 			}
@@ -52,7 +61,8 @@ namespace SpotMyJobApp.Controllers
 			if (result.Succeeded)
 			{
 				var user = await userManager.FindByEmailAsync(model.Email);
-				return Ok(new { message = "Login successful", user.FirstName, user.LastName, user.Id });
+				var userRole = User.FindFirstValue(ClaimTypes.Role);
+				return Ok(new { message = "Login successful", user.FirstName, user.LastName, user.Id, userRole});
 			}
 
 			return Unauthorized(new { message = "Invalid login attempt" });
@@ -105,7 +115,7 @@ namespace SpotMyJobApp.Controllers
 
 			var jobApplications = await authService.GetUsersJobApplicationsAsync(userId);
 
-			if(jobApplications == null)
+			if (jobApplications == null)
 			{
 				return NotFound("Job applications not found!");
 			}

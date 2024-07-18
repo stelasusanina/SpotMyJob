@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SpotMyJobApp.Data.Models;
 using SpotMyJobApp.Data;
-using SpotMyJobApp.Services.Contracts;
+using SpotMyJobApp.Data.Models;
+using SpotMyJobApp.Extensions;
 using SpotMyJobApp.Services;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using SpotMyJobApp.Services.Contracts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,21 +19,20 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
 	.AddEntityFrameworkStores<ApplicationDbContext>()
+	.AddRoles<IdentityRole>()
 	.AddDefaultTokenProviders();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
-	options.Cookie.HttpOnly = false; 
-	options.Cookie.SameSite = SameSiteMode.None; 
-	options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest; 
+	options.Cookie.HttpOnly = false;
+	options.Cookie.SameSite = SameSiteMode.None;
+	options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
 	options.Cookie.Domain = "localhost";
-	options.ExpireTimeSpan = TimeSpan.FromMinutes(60); 
-	options.LoginPath = "/api/auth/login"; 
-	options.AccessDeniedPath = "/api/auth/access-denied"; 
-	options.SlidingExpiration = true; 
+	options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+	options.LoginPath = "/api/auth/login";
+	options.AccessDeniedPath = "/api/auth/access-denied";
+	options.SlidingExpiration = true;
 });
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -76,5 +75,7 @@ app.UseAuthorization();
 app.UseCors(CLIENT_CORS_POLICY_NAME);
 
 app.MapControllers();
+
+await app.CreateRolesAsync();
 
 app.Run();
