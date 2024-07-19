@@ -1,6 +1,7 @@
 .user-details{
     width: 95%;
     display: flex;
+    margin-bottom: 20px;
 }
 
 .user-details img{
@@ -38,4 +39,50 @@
     border-left: 4px solid;
     border-image: linear-gradient(to top, rgba(162, 4, 253, 0.47), rgba(250, 197, 7, 0.47)) 1;
     padding-left: 20px;
+    width: 70%;
+}
+
+.application{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
+.application p, .user-details-info p{
+    margin: 5px;
+}
+
+.short-info{
+    display: flex;
+    align-items: center;
+}
+
+i:hover{
+    color: #a204fd;
+    cursor: pointer;
+}
+
+.status-applied{
+    font-weight: 800;
+    color: #2192FF;
+}
+
+.status-in-progress{
+    font-weight: 800;
+    color: #FFDB5C;
+}
+
+.status-completed{
+    font-weight: 800;
+    color: #38E54D;
+}
+
+.status-rejected{
+    font-weight: 800;
+    color: #FF1E1E;
+}
+
+.title{
+    font-weight: 800;
 }
