@@ -1,0 +1,41 @@
+.user-details{
+    width: 95%;
+    display: flex;
+}
+
+.user-details img{
+  border-radius: 50%; 
+  width: 160px; 
+  height: 160px; 
+  object-fit: cover; 
+}
+
+.user-details-image-container{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-details-buttons-container{
+    display: flex;
+    gap: 5px;
+}
+
+.user-details-buttons-container button{
+    background-color: #a204fd;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 6px 13px;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-size: 14px;
+}
+
+.user-details-info{
+    border-left: 4px solid;
+    border-image: linear-gradient(to top, rgba(162, 4, 253, 0.47), rgba(250, 197, 7, 0.47)) 1;
+    padding-left: 20px;
+}

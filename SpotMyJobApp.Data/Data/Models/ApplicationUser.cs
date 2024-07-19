@@ -11,6 +11,7 @@ namespace SpotMyJobApp.Data.Models
 		[Required]
 		public string LastName { get; set; } = string.Empty;
 
+		public string? ProfilePictureUrl {  get; set; }
 		public ICollection<JobApplication> JobsApplications { get; set; } = new List<JobApplication>();
 	}
 }

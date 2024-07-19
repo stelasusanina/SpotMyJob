@@ -11,5 +11,7 @@ namespace SpotMyJobApp.Services.Contracts
 		Task LogoutAsync();
 		Task<ApplicationUserDto> GetUserDetailsAsync(string userId);
 		Task<IEnumerable<JobApplicationDto>> GetUsersJobApplicationsAsync(string userId);
+		Task RemoveProfilePhotoAsync(string userId);
+		Task UploadProfilePhotoAsync(string userId, string profilePhotoUrl);
 	}
 }

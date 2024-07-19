@@ -87,7 +87,7 @@ namespace SpotMyJobApp.Controllers
 			return Ok(new { userId });
 		}
 
-		[HttpGet("profile/userDetails")]
+		[HttpGet("myProfile/details")]
 		public async Task<IActionResult> GetUserDetails(string userId)
 		{
 			if (string.IsNullOrEmpty(userId))
@@ -105,7 +105,7 @@ namespace SpotMyJobApp.Controllers
 			return Ok(userDetails);
 		}
 
-		[HttpGet("profile/jobApplications")]
+		[HttpGet("myProfile/jobApplications")]
 		public async Task<IActionResult> GetUsersJobApplications(string userId)
 		{
 			if (string.IsNullOrEmpty(userId))
@@ -121,6 +121,32 @@ namespace SpotMyJobApp.Controllers
 			}
 
 			return Ok(jobApplications);
+		}
+
+		[HttpPost("myProfile/removeProfilePhoto")]
+		public async Task<IActionResult> RemoveProfilePhoto()
+		{
+			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			if (string.IsNullOrEmpty(userId))
+			{
+				return NotFound("User not found!");
+			}
+
+			await authService.RemoveProfilePhotoAsync(userId);
+			return Ok("Successfully removed profile photo!");
+		}
+
+		[HttpPost("myProfile/uploadProfilePhoto")]
+		public async Task<IActionResult> UploadProfilePhoto([FromBody] UploadProfilePhotoDto model)
+		{
+			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+			if (string.IsNullOrEmpty(userId))
+			{
+				return NotFound("User not found!");
+			}
+
+			await authService.UploadProfilePhotoAsync(userId, model.ProfilePhotoUrl);
+			return Ok("Successfully uploaded profile photo!");
 		}
 
 		[HttpGet("access-denied")]

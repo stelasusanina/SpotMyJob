@@ -65,7 +65,8 @@ namespace SpotMyJobApp.Services
 					FirstName = u.FirstName,
 					LastName = u.LastName,
 					PhoneNumber = u.PhoneNumber,
-					Email = u.Email
+					Email = u.Email,
+					ProfilePictureUrl = u.ProfilePictureUrl
 				})
 				.FirstOrDefaultAsync();
 
@@ -89,5 +90,26 @@ namespace SpotMyJobApp.Services
 			return applications;
 		}
 
+		public async Task RemoveProfilePhotoAsync(string userId)
+		{
+			var user = await context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+
+			if(user != null)
+			{
+				user.ProfilePictureUrl = null;
+				await context.SaveChangesAsync();
+			}
+		}
+
+		public async Task UploadProfilePhotoAsync(string userId, string profilePhotoUrl)
+		{
+			var user = await context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+
+			if (user != null)
+			{
+				user.ProfilePictureUrl = profilePhotoUrl;
+				await context.SaveChangesAsync();
+			}
+		}
 	}
 }

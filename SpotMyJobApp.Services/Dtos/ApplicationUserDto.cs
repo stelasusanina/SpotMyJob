@@ -13,6 +13,7 @@ namespace SpotMyJobApp.Services.Dtos
 		public string LastName { get; set; }
 		public string PhoneNumber {  get; set; }
 		public string Email { get; set; }
+		public string ProfilePictureUrl { get; set; }
 		public IEnumerable<JobApplicationDto> JobsApplications { get; set; }
     }
 }
