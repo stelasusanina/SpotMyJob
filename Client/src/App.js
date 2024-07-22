@@ -9,6 +9,7 @@ import Jobs from "./pages/jobs/Jobs";
 import SingleJobOffer from "./pages/singleJobOffer/SingleJobOffer";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import MyProfile from "./pages/myProfile/MyProfile";
+import AddNewJobOffer from "./pages/addNewJobOffer/AddNewJobOffer";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="jobs/search" element={<Jobs />} />
         <Route path="jobs/filter" element={<Jobs />} />
         <Route path="/myProfile" element={<MyProfile />} />
+        <Route path="admin/addJobOffer" element={<AddNewJobOffer />}/> 
       </Routes>
       <ToastContainer />
     </Router>

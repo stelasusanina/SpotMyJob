@@ -79,12 +79,13 @@ namespace SpotMyJobApp.Controllers
 		public IActionResult Identify()
 		{
 			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-			if (userId == null)
+			var userRole = User.FindFirstValue(ClaimTypes.Role);
+			if (userId == null || userRole == null)
 			{
 				return NotFound(new { message = "User not found" });
 			}
 
-			return Ok(new { userId });
+			return Ok(new { userId, userRole });
 		}
 
 		[HttpGet("myProfile/details")]

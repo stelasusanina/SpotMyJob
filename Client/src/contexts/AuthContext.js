@@ -12,6 +12,7 @@ export function useAuth() {
 export function AuthProvider(props) {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [role, setRole] = useState(null);
 
   const notifyLogin = (firstName, lastName) =>
     toast(
@@ -40,7 +41,8 @@ export function AuthProvider(props) {
           `${process.env.REACT_APP_API_BASE_URL}/auth/identify`
         );
         setIsLoggedIn(true);
-        setUser();
+        setUser(response.data.userId);
+        setRole(response.data.userRole);
       } catch (error) {
         setIsLoggedIn(false);
         setUser(null);
@@ -58,7 +60,7 @@ export function AuthProvider(props) {
 
       if (response.status === 200) {
         notifyLogin(response.data.firstName, response.data.lastName);
-        setUser(response.data);
+        setUser(response.data.userId);
         setIsLoggedIn(true);
         return response.data;
       }
@@ -106,6 +108,7 @@ export function AuthProvider(props) {
       }
   
       setUser(response.data.userId);
+      setRole(response.data.userRole);
       return response.data.userId;
     } catch (error) {
       console.error("Identify failed:", error);
@@ -120,7 +123,9 @@ export function AuthProvider(props) {
     setIsLoggedIn,
     login,
     logout,
-    identify
+    identify,
+    role,
+    setRole
   };
 
   return (
