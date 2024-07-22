@@ -1,36 +1,53 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./JobOffer.css";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
+import axiosClient from "../../shared/axiosClient";
 
 export default function JobOffer({
   id,
   title,
+  companyName,
+  companyImgUrl,
   country,
   city,
-  companyImgUrl,
   postedOn,
   isFullTime,
 }) {
   const [userId, setUserId] = useState(null);
-  const { identify } = useAuth();
+  const [role, setRole] = useState(null);
+  const { identify, getRole } = useAuth();
   const formattedDate = new Date(postedOn).toLocaleDateString();
 
   useEffect(() => {
-    const fetchUserId = async () => {
-      const id = await identify();
-      setUserId(id);
+    const fetchUser = async () => {
+      const userIdResponse = await identify();
+      setUserId(userIdResponse);
+      const roleResponse = await getRole();
+      setRole(roleResponse);
     };
-
-    fetchUserId();
+  
+    fetchUser();
   }, [identify]);
+  
 
+  const deleteJob = async () => {
+    try {
+      await axiosClient.delete(
+        `${process.env.REACT_APP_API_BASE_URL}/admin/deleteJobOffer/${id}`,
+      );
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  console.log(userId, role);
   return (
     <div className="job-container">
       <div className="job-info">
-        <Link
-          className="job-title"
-          to={userId ? `/jobs/${id}` : `/auth/login`}>
+        <Link className="job-title" to={userId ? `/jobs/${id}` : `/auth/login`}>
           <h2>{title}</h2>
         </Link>
         <div className="job-details">
@@ -64,6 +81,11 @@ export default function JobOffer({
         </div>
       </div>
       <img className="company-logo" src={companyImgUrl} alt="Company Logo" />
+      {userId &&  role === "Admin" && (
+        <button onClick={deleteJob} className="delete-button">
+          <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+      )}
     </div>
   );
 }

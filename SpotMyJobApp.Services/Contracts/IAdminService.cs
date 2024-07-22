@@ -10,5 +10,6 @@ namespace SpotMyJobApp.Services.Contracts
 	public interface IAdminService
 	{
 		Task AddJobOfferAsync(EditAddJobOfferDto model);
+		Task<bool> DeleteJobOfferAsync(int jobOfferId);
 	}
 }

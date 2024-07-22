@@ -51,3 +51,15 @@
 .job-title:hover{
     color: #a204fd;
 }
+
+.delete-button{
+    border: none;
+    background: none;
+    color: red;
+    font-size: 20px;
+}
+
+.delete-button i:hover{
+    cursor: pointer;
+    color: red;
+}

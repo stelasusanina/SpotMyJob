@@ -42,7 +42,7 @@ namespace SpotMyJobApp.Controllers
 
 				var userRole = User.FindFirstValue(ClaimTypes.Role);
 
-				return Ok(new { message = "User registered successfully", user.FirstName, user.LastName, user.Id, user.Email, userRole});
+				return Ok(new { message = "User registered successfully", user.FirstName, user.LastName, user.Id, user.Email, userRole });
 			}
 
 			return BadRequest(result.Errors);
@@ -62,7 +62,7 @@ namespace SpotMyJobApp.Controllers
 			{
 				var user = await userManager.FindByEmailAsync(model.Email);
 				var userRole = User.FindFirstValue(ClaimTypes.Role);
-				return Ok(new { message = "Login successful", user.FirstName, user.LastName, user.Id, userRole});
+				return Ok(new { message = "Login successful", user.FirstName, user.LastName, user.Id, userRole });
 			}
 
 			return Unauthorized(new { message = "Invalid login attempt" });
@@ -79,13 +79,26 @@ namespace SpotMyJobApp.Controllers
 		public IActionResult Identify()
 		{
 			var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-			var userRole = User.FindFirstValue(ClaimTypes.Role);
-			if (userId == null || userRole == null)
+			if (userId == null)
 			{
 				return NotFound(new { message = "User not found" });
 			}
 
-			return Ok(new { userId, userRole });
+			return Ok(userId);
+		}
+
+		[HttpGet("getRole")]
+		public IActionResult GetRole()
+		{
+			var userRole = User.FindFirstValue(ClaimTypes.Role);
+
+			if (userRole == null)
+			{
+				return NotFound(new { message = "User not found" });
+			}
+
+			return Ok(userRole);
+
 		}
 
 		[HttpGet("myProfile/details")]

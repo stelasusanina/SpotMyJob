@@ -59,5 +59,19 @@ namespace SpotMyJobApp.Services
 			await context.JobOffers.AddAsync(jobOffer);
 			await context.SaveChangesAsync();
 		}
+
+		public async Task<bool> DeleteJobOfferAsync(int jobOfferId)
+		{
+			var jobOffer = await context.JobOffers.FindAsync(jobOfferId);
+
+			if (jobOffer == null)
+			{
+				return false;
+			}
+
+			context.JobOffers.Remove(jobOffer);
+			await context.SaveChangesAsync();
+			return true;
+		}
 	}
 }

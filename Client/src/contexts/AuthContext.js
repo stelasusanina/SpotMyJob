@@ -107,14 +107,28 @@ export function AuthProvider(props) {
         return null;
       }
   
-      setUser(response.data.userId);
-      setRole(response.data.userRole);
-      return response.data.userId;
+      setUser(response.data);
+      
+      return {
+        userId: response.data
+      };
     } catch (error) {
       console.error("Identify failed:", error);
       return null;
     }
   };  
+
+  const getRole = async () => {
+    try {
+      const response = await axiosClient.get(
+        `${process.env.REACT_APP_API_BASE_URL}/auth/getRole`
+      );
+      setRole(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Identify failed:", error);
+    }
+  };
 
   const value = {
     user,
@@ -125,7 +139,8 @@ export function AuthProvider(props) {
     logout,
     identify,
     role,
-    setRole
+    setRole,
+    getRole
   };
 
   return (
