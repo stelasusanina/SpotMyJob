@@ -53,6 +53,16 @@ export default function App() {
             )
           }
         />
+        <Route
+          path="/admin/applications"
+          element={
+            user && role === "Admin" ? (
+              <AddNewJobOffer />
+            ) : (
+              <Navigate to="/unauthorized" />
+            )
+          }
+        />
       </Routes>
       <ToastContainer />
     </Router>

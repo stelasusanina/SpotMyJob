@@ -63,3 +63,15 @@ li{
 .apply-now-text{
     font-weight: 800;
 }
+
+.applications.btn, .btn{
+    background-color: #a204fd;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 10px 18px;
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    font-size: 16px;
+    margin-bottom: 20px;
+}

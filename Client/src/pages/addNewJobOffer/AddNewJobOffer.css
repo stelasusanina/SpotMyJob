@@ -1,0 +1,47 @@
+.form-container{
+    text-align: center;
+    height: 200px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-input{
+    border: none;
+    font-size: 15px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.form-group{
+    justify-content: center;
+}
+
+.form-input:focus{
+    outline: 0;
+    box-shadow: #a204fd7e 0px 1px 4px;
+}
+
+.form-group-checkbox{
+    justify-content: center;
+    color: gray;
+}
+
+textarea{
+    resize: none;
+    width: 100%;
+    height: 60px;
+}
+
+.error.add-job{
+    top:75px;
+}
+
+.choose-category{
+    color: gray;
+    border-right: 10px solid transparent;
+}

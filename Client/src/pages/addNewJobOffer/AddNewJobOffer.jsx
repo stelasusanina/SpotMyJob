@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useAuth } from "../../contexts/AuthContext";
+import "./AddNewJobOffer.css";
 
 const schema = yup.object().shape({
   title: yup.string().required("Job title is required"),
@@ -90,7 +91,7 @@ export default function AddNewJobOffer() {
   }
   return (
     <div className="form-container">
-      <h1>Add New Job Offer</h1>
+      <h3>Add New Job Offer</h3>
       <form onSubmit={formik.handleSubmit}>
         <div className="form-group">
           <input
@@ -102,7 +103,7 @@ export default function AddNewJobOffer() {
             onBlur={formik.handleBlur}
           />
           {formik.touched.title && formik.errors.title ? (
-            <div className="error">{formik.errors.title}</div>
+            <div className="error add-job">{formik.errors.title}</div>
           ) : null}
         </div>
 
@@ -116,7 +117,7 @@ export default function AddNewJobOffer() {
             onBlur={formik.handleBlur}
           />
           {formik.touched.country && formik.errors.country ? (
-            <div className="error">{formik.errors.country}</div>
+            <div className="error add-job">{formik.errors.country}</div>
           ) : null}
         </div>
 
@@ -130,7 +131,7 @@ export default function AddNewJobOffer() {
             onBlur={formik.handleBlur}
           />
           {formik.touched.city && formik.errors.city ? (
-            <div className="error">{formik.errors.city}</div>
+            <div className="error add-job">{formik.errors.city}</div>
           ) : null}
         </div>
 
@@ -144,11 +145,11 @@ export default function AddNewJobOffer() {
             onBlur={formik.handleBlur}
           />
           {formik.touched.companyImgUrl && formik.errors.companyImgUrl ? (
-            <div className="error">{formik.errors.companyImgUrl}</div>
+            <div className="error add-job">{formik.errors.companyImgUrl}</div>
           ) : null}
         </div>
 
-        <div className="form-group">
+        <div className="form-group form-group-checkbox">
           <label>
             <input
               name="isFullTime"
@@ -157,7 +158,7 @@ export default function AddNewJobOffer() {
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
             />
-            Is Full-time?
+            Full-time
           </label>
         </div>
 
@@ -171,7 +172,7 @@ export default function AddNewJobOffer() {
             onBlur={formik.handleBlur}
           />
           {formik.touched.companyName && formik.errors.companyName ? (
-            <div className="error">{formik.errors.companyName}</div>
+            <div className="error add-job">{formik.errors.companyName}</div>
           ) : null}
         </div>
 
@@ -186,7 +187,7 @@ export default function AddNewJobOffer() {
           />
           {formik.touched.companyDescription &&
           formik.errors.companyDescription ? (
-            <div className="error">{formik.errors.companyDescription}</div>
+            <div className="error add-job">{formik.errors.companyDescription}</div>
           ) : null}
         </div>
 
@@ -196,7 +197,7 @@ export default function AddNewJobOffer() {
             value={formik.values.jobCategoryId}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            className="form-input">
+            className="form-input choose-category">
             <option value="" disabled>
               Choose category
             </option>
@@ -207,7 +208,7 @@ export default function AddNewJobOffer() {
             ))}
           </select>
           {formik.touched.jobCategoryId && formik.errors.jobCategoryId ? (
-            <div className="error">{formik.errors.jobCategoryId}</div>
+            <div className="error add-job">{formik.errors.jobCategoryId}</div>
           ) : null}
         </div>
 
@@ -221,7 +222,7 @@ export default function AddNewJobOffer() {
             onBlur={formik.handleBlur}
           />
           {formik.touched.sections && formik.errors.sections ? (
-            <div className="error">{formik.errors.sections[0]?.Content}</div>
+            <div className="error add-job">{formik.errors.sections[0]?.Content}</div>
           ) : null}
         </div>
 
@@ -235,7 +236,7 @@ export default function AddNewJobOffer() {
             onBlur={formik.handleBlur}
           />
           {formik.touched.sections && formik.errors.sections ? (
-            <div className="error">{formik.errors.sections[1]?.Content}</div>
+            <div className="error add-job">{formik.errors.sections[1]?.Content}</div>
           ) : null}
         </div>
 
@@ -249,11 +250,11 @@ export default function AddNewJobOffer() {
             onBlur={formik.handleBlur}
           />
           {formik.touched.sections && formik.errors.sections ? (
-            <div className="error">{formik.errors.sections[2]?.Content}</div>
+            <div className="error add-job">{formik.errors.sections[2]?.Content}</div>
           ) : null}
         </div>
 
-        <button className="form-button" type="submit">
+        <button className="btn" type="submit">
           Submit
         </button>
       </form>

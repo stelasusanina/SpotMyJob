@@ -9,10 +9,12 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [activePath, setActivePath] = useState(location.pathname);
-  const { logout, isLoggedIn } = useAuth();
+  const { logout, isLoggedIn, getRole } = useAuth();
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
     setActivePath(location.pathname);
+    getRole().then((data) => setRole(data));
   }, [location]);
 
   const navBarStyle = {
@@ -63,12 +65,33 @@ export default function Navbar() {
           ) : (
             <div className="logged-in">
               <li>
-                <Link
-                  to="/myProfile"
-                  className={activePath === "/myProfile" ? "active" : ""}>
-                  My Profile
-                </Link>
+                {role === "Admin" ? (
+                  <Link
+                    to="/admin/applications"
+                    className={
+                      activePath === "/admin/applications" ? "active" : ""
+                    }>
+                    Applications
+                  </Link>
+                ) : (
+                  <Link
+                    to="/myProfile"
+                    className={activePath === "/myProfile" ? "active" : ""}>
+                    My Profile
+                  </Link>
+                )}
               </li>
+              {role === "Admin" && (
+                <li>
+                  <Link
+                    to="/admin/addJobOffer"
+                    className={
+                      activePath === "/admin/addJobOffer" ? "active" : ""
+                    }>
+                    Add job offer
+                  </Link>
+                </li>
+              )}
               <li>
                 <button className="logout-button" onClick={logoutUser}>
                   Logout

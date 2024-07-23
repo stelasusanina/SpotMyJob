@@ -4,6 +4,7 @@ import "./SingleJobOffer.css";
 import FileUpload from "../../components/fileUpload/FileUpload";
 import { useAuth } from "../../contexts/AuthContext";
 import axiosClient from "../../shared/axiosClient";
+import { useNavigate } from "react-router-dom";
 
 export default function SingleJobOffer() {
     const { jobId } = useParams();
@@ -11,6 +12,7 @@ export default function SingleJobOffer() {
     const [hasApplied, setHasApplied] = useState(false);
     const { user, getRole } = useAuth();
     const [role, setRole] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchJob = async () => {
@@ -125,8 +127,7 @@ export default function SingleJobOffer() {
                 jobTitle={job.title}
                 company={job.companyName}
               />
-            ): (<button className="all-applications">See all applications</button>)}
-
+            ): (<button onClick={() => navigate("/admin/applications")} className="btn applications">See all applications</button>)}
           </div>
         )}
       </div>
