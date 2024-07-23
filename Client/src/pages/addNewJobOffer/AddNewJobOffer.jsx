@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useAuth } from "../../contexts/AuthContext";
 
 const schema = yup.object().shape({
   title: yup.string().required("Job title is required"),
@@ -25,6 +26,8 @@ const schema = yup.object().shape({
 
 export default function AddNewJobOffer() {
   const navigate = useNavigate();
+  const {getRole} = useAuth();
+  const [role, setRole] = useState(null);
   const [jobCategories, setJobCategories] = useState([]);
 
   const formik = useFormik({
@@ -45,7 +48,7 @@ export default function AddNewJobOffer() {
     },
     validationSchema: schema,
     onSubmit: async (values) => {
-      console.log('Data being sent:', values);
+      console.log("Data being sent:", values);
 
       try {
         const response = await axios.post(
@@ -61,6 +64,11 @@ export default function AddNewJobOffer() {
   });
 
   useEffect(() => {
+    const fetchRole = async () => {
+        const response = await getRole();
+        setRole(response);
+        console.log(response.data);
+    }
     const fetchJobCategories = async () => {
       try {
         const response = await axios.get(
@@ -73,8 +81,13 @@ export default function AddNewJobOffer() {
     };
 
     fetchJobCategories();
-  }, []);
+    fetchRole();
+  }, [role, getRole]);
 
+
+  if(role !== "Admin"){
+    
+  }
   return (
     <div className="form-container">
       <h1>Add New Job Offer</h1>
