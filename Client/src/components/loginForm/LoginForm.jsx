@@ -39,7 +39,7 @@ export default function LoginForm() {
 
   return (
     <div className="login-form">
-      <h1>Login</h1>
+      <h1 className="login-title">Login</h1>
       <form onSubmit={formik.handleSubmit}>
         <div className="input-group">
           <input

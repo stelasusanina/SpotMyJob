@@ -52,7 +52,7 @@
   color: white;
 }
 
-h1 {
+.login-title, .register-title {
   text-align: center;
   color: white;
 }

@@ -81,7 +81,7 @@ export default function RegisterForm() {
 
   return (
     <div className="register-form">
-      <h1>Register</h1>
+      <h1 className="register-title">Register</h1>
       <form onSubmit={formik.handleSubmit}>
         <div className="form-group">
           <div className="relative">

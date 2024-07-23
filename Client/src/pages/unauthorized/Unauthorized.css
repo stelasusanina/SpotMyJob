@@ -1,0 +1,27 @@
+.unauthorized-title{
+    font-size: 60px;
+    background-image: linear-gradient(
+        to top,
+        rgba(162, 4, 253, 0.7),
+        rgba(250, 197, 7, 0.7)
+      );
+    border-radius: 50%;
+    width: 50%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.unauthorized{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 70vh;
+    justify-content: center;
+}
+
+.unauthorized p{
+    margin: 0;
+}
