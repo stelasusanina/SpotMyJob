@@ -43,3 +43,14 @@
 .apply:disabled{
     cursor:auto;
 }
+
+.link-myProfile{
+    text-decoration: none;
+    color: #a204fd;
+    font-style: italic;
+    font-weight: 800;
+}
+
+.link-myProfile:hover{
+    color: black;
+}

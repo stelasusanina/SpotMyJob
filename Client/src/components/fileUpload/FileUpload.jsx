@@ -3,7 +3,7 @@ import { useAuth } from "../../contexts/AuthContext";
 import axiosClient from "../../shared/axiosClient";
 import "./FileUpload.css";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function FileUpload({ jobId, hasApplied, jobTitle, company }) {
   const [file, setFile] = useState(null);
@@ -46,7 +46,7 @@ export default function FileUpload({ jobId, hasApplied, jobTitle, company }) {
   return (
     <div className="apply-to-job">
       {hasApplied ? (
-        <p className="already-applied">You have already applied to this job. See your applications.</p>
+        <p className="already-applied">You have already applied to this job. <Link to="/myProfile" className="link-myProfile">See your applications</Link></p>
       ) : (
         <div>
           <input

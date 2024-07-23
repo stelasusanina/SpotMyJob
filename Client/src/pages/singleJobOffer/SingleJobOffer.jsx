@@ -9,15 +9,17 @@ export default function SingleJobOffer() {
     const { jobId } = useParams();
     const [job, setJob] = useState(null);
     const [hasApplied, setHasApplied] = useState(false);
-    const { user } = useAuth();
+    const { user, getRole } = useAuth();
+    const [role, setRole] = useState(null);
 
     useEffect(() => {
         const fetchJob = async () => {
             try {
-                const response = await axiosClient.get(`${process.env.REACT_APP_API_BASE_URL}/jobs/${jobId}`);
-                setJob(response.data);
+              setRole(await getRole());
+              const response = await axiosClient.get(`${process.env.REACT_APP_API_BASE_URL}/jobs/${jobId}`);
+              setJob(response.data);
             } catch (error) {
-                console.error("Error fetching job:", error);
+              console.error("Error fetching job:", error);
             }
         };
 
@@ -113,13 +115,18 @@ export default function SingleJobOffer() {
                 </div>
               ))}
             </div>
-            <p className="apply-now-text">Does it sound like the perfect job for you? Apply now!</p>
-            <FileUpload
-              jobId={jobId}
-              hasApplied={hasApplied}
-              jobTitle={job.title}
-              company={job.companyName}
-            />
+            <p className="apply-now-text">
+              Does it sound like the perfect job for you? Apply now!
+            </p>
+            {role === "User" ? (
+              <FileUpload
+                jobId={jobId}
+                hasApplied={hasApplied}
+                jobTitle={job.title}
+                company={job.companyName}
+              />
+            ): (<button className="all-applications">See all applications</button>)}
+
           </div>
         )}
       </div>
