@@ -16,6 +16,8 @@ namespace SpotMyJobApp.Services.Dtos
 		public string JobOfferTitle { get; set; }
 		public string JobCompanyName { get; set; }
 		public string ApplicationUserId { get; set; } 
+		public string ApplicationUserProfilePhotoUrl { get; set; }
+		public string ApplicationUserNames { get; set; }
 		public string Status { get; set; } 
 		public string UploadedFileName { get; set; } 
 		public string AppliedOn { get; set; }

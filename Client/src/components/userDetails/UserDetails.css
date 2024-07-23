@@ -63,22 +63,22 @@ i:hover{
     cursor: pointer;
 }
 
-.status-applied{
+.status-Applied{
     font-weight: 800;
     color: #2192FF;
 }
 
-.status-in-progress{
+.status-In-progress{
     font-weight: 800;
     color: #FFDB5C;
 }
 
-.status-completed{
+.status-Completed{
     font-weight: 800;
     color: #38E54D;
 }
 
-.status-rejected{
+.status-Rejected{
     font-weight: 800;
     color: #FF1E1E;
 }

@@ -18,6 +18,8 @@ namespace SpotMyJobApp.Services.Dtos
 		public string City { get; set; } 
 		public bool IsFullTime { get; set; }
 		public string CompanyImgUrl { get; set; } 
+		public string CompanyName {  get; set; }
 		public string JobCategory { get; set; } 
+		public List<JobApplicationDto> Users { get; set; }
 	}
 }

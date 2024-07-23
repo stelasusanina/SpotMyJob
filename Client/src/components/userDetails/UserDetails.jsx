@@ -89,13 +89,13 @@ export default function UserDetails() {
   const getStatusClass = (status) => {
     switch(status) {
       case 'Applied':
-        return 'applied';
+        return 'Applied';
       case 'In Progress':
-        return 'in-progress';
+        return 'In-progress';
       case 'Completed':
-        return 'completed';
+        return 'Completed';
       case 'Rejected':
-        return 'rejected'; 
+        return 'Rejected'; 
       default:
         return '';
     }

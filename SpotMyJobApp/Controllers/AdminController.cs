@@ -19,7 +19,7 @@ namespace SpotMyJobApp.Controllers
 		[HttpPost("addJobOffer")]
 		public async Task<IActionResult> AddJobOffer([FromBody] EditAddJobOfferDto model)
 		{
-			if(model == null)
+			if (model == null)
 			{
 				return BadRequest("Job offer data is null.");
 			}
@@ -44,6 +44,31 @@ namespace SpotMyJobApp.Controllers
 			}
 
 			return Ok("Job offer deleted successfully.");
+		}
+
+		[HttpGet("allJobApplications")]
+		public async Task<IActionResult> GetAllJobApplications()
+		{
+			var jobOffers = await adminService.GetAllJobApplicationsAsync();
+			if (jobOffers == null)
+			{
+				return BadRequest("");
+			}
+
+			return Ok(jobOffers);
+		}
+
+		[HttpPut("changeApplicationStatus")]
+		public async Task<IActionResult> ChangeStatusOfApplication([FromForm] string userId, [FromForm] int jobOfferId, [FromForm] string status)
+		{
+			if (string.IsNullOrEmpty(userId) || jobOfferId <= 0 || string.IsNullOrEmpty(status))
+			{
+				return BadRequest("Invalid data.");
+			}
+
+			await adminService.ChangeStatusOfApplicationAsync(userId, jobOfferId, status);
+
+			return Ok();
 		}
 	}
 }

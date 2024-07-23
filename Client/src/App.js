@@ -13,6 +13,7 @@ import AddNewJobOffer from "./pages/addNewJobOffer/AddNewJobOffer";
 import Unauthorized from "./pages/unauthorized/Unauthorized";
 import { useAuth } from "./contexts/AuthContext";
 import { useEffect, useState } from "react";
+import Applications from "./pages/applications/Applications";
 
 export default function App() {
   const { identify, getRole } = useAuth();
@@ -57,7 +58,7 @@ export default function App() {
           path="/admin/applications"
           element={
             user && role === "Admin" ? (
-              <AddNewJobOffer />
+              <Applications />
             ) : (
               <Navigate to="/unauthorized" />
             )

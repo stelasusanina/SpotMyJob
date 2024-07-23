@@ -60,6 +60,21 @@ namespace SpotMyJobApp.Services
 			await context.SaveChangesAsync();
 		}
 
+		public async Task ChangeStatusOfApplicationAsync(string userId, int jobOfferId, string status)
+		{
+			var jobApplication = await context.JobsApplications
+				.Where(ja => ja.JobOfferId == jobOfferId && ja.ApplicationUserId == userId)
+				.FirstOrDefaultAsync();
+
+			if(jobApplication == null)
+			{
+				return;
+			}
+
+			jobApplication.Status = status;
+			await context.SaveChangesAsync();
+		}
+
 		public async Task<bool> DeleteJobOfferAsync(int jobOfferId)
 		{
 			var jobOffer = await context.JobOffers.FindAsync(jobOfferId);
@@ -72,6 +87,33 @@ namespace SpotMyJobApp.Services
 			context.JobOffers.Remove(jobOffer);
 			await context.SaveChangesAsync();
 			return true;
+		}
+
+		public async Task<IEnumerable<ShortJobOfferDto>> GetAllJobApplicationsAsync()
+		{
+			var jobs = await context.JobOffers
+				.Include(jo => jo.JobsApplications)
+				.ThenInclude(ja => ja.Applicant)
+				.Select(jo => new ShortJobOfferDto
+				{
+					Id = jo.Id,
+					Title = jo.Title,
+					CompanyName = jo.CompanyName,
+					Country = jo.Country,
+					City = jo.City,
+					Users = jo.JobsApplications.Select(ja => new JobApplicationDto
+					{
+						ApplicationUserId = ja.ApplicationUserId,
+						ApplicationUserProfilePhotoUrl = ja.Applicant.ProfilePictureUrl,
+						ApplicationUserNames = ja.Applicant.FirstName + " " + ja.Applicant.LastName,
+						Status = ja.Status,
+						UploadedFileName = ja.UploadedFileName,
+						AppliedOn = ja.AppliedOn.ToString()
+					}).ToList()
+				})
+				.ToListAsync();
+
+			return jobs;
 		}
 	}
 }

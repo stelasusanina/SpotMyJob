@@ -1,0 +1,58 @@
+.all-job-applications{
+    width: 90%;
+}
+
+.job-with-applications {
+    border: 5px solid; 
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to top, rgba(162, 4, 253, 0.7), rgba(250, 197, 7, 0.7)); 
+    margin-bottom: 10px;
+    padding: 0 18px ;
+}
+
+.application-details p span{
+    font-weight: 700;
+}
+
+.application-title{
+    color: #a204fd;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.application-user{
+    margin-bottom: 30px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.application-details p{
+    margin: 10px;
+}
+
+.profile-picture{
+  border-radius: 50%; 
+  width: 100px; 
+  height: 100px; 
+  object-fit: cover; 
+}
+
+.change-status{
+    margin-left: 10px;
+}
+
+.application-details{
+    flex-direction: column;
+}
+
+.application-header{
+    display: flex;
+    align-items: baseline;
+}
+
+.application-header i {
+    margin-left: 10px;
+}
