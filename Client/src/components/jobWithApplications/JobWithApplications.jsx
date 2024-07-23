@@ -34,6 +34,7 @@ export default function JobWithApplications({ jobId, companyName, jobTitle, city
         <p className="application-title">
           {jobTitle} at {companyName} {`(${city}, ${country})`}
         </p>
+        <span className="applications-count">Total Applications: {users.length}</span>
         <span className="toggle-job" onClick={toggleExpandJob}>
           {isExpanded ? (
             <i className="fa-solid fa-caret-up"></i>

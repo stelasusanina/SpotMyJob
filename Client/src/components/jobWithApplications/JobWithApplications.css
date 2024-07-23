@@ -56,3 +56,8 @@
 .application-header i {
     margin-left: 10px;
 }
+
+.applications-count{
+    margin-left: 10px;
+    color: gray;
+}
