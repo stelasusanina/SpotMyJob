@@ -12,7 +12,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotMyJobApp.Data", "SpotMy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotMyJobApp.Services", "SpotMyJobApp.Services\SpotMyJobApp.Services.csproj", "{C3C8521E-1229-46FC-B6BB-64C3FBE6D86A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpotMyJobApp.Tests", "SpotMyJobApp.Tests\SpotMyJobApp.Tests.csproj", "{823FE597-9834-42E5-9DB9-91E44A64A656}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpotMyJobApp.Tests", "SpotMyJobApp.Tests\SpotMyJobApp.Tests.csproj", "{823FE597-9834-42E5-9DB9-91E44A64A656}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C3C8521E-1229-46FC-B6BB-64C3FBE6D86A} = {C3C8521E-1229-46FC-B6BB-64C3FBE6D86A}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
