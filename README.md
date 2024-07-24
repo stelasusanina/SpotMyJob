@@ -1,5 +1,5 @@
 # SpotMyJob
-SpotMyJob is a job listing platform built with **ASP.NET Core** for the backend API and **React** for the frontend. The application allows users to search for job offers, apply to jobs, and manage job applications. It also provides administrative features for managing job listings and applications.
+SpotMyJob is a job listing platform built with **ASP.NET Core** for the backend API and **React** for the frontend. The application allows users to search for job offers, apply to jobs. It also includes roles (admin and user), so that admins can manage job applications.
 ## Features
 - **User Registration and Authentication:** Sign-up and login functionality with cookie-based authentication..
 - **Job Offers:** Browse, filter and order job offers based on categories, locations, job titles and other criteria.
