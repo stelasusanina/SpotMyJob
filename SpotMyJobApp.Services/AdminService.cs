@@ -16,7 +16,7 @@ namespace SpotMyJobApp.Services
 		{
 			this.context = context;
 		}
-		public async Task AddJobOfferAsync(EditAddJobOfferDto model)
+		public async Task AddJobOfferAsync(AddJobOfferDto model)
 		{
 			if (model == null)
 			{

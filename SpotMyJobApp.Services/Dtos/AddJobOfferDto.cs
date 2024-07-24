@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SpotMyJobApp.Services.Dtos
 {
-	public class EditAddJobOfferDto
+	public class AddJobOfferDto
 	{
 		public string Title { get; set; }
 		public string Country { get; set; }

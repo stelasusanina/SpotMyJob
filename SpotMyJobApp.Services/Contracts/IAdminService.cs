@@ -9,7 +9,7 @@ namespace SpotMyJobApp.Services.Contracts
 {
 	public interface IAdminService
 	{
-		Task AddJobOfferAsync(EditAddJobOfferDto model);
+		Task AddJobOfferAsync(AddJobOfferDto model);
 		Task<bool> DeleteJobOfferAsync(int jobOfferId);
 		Task<IEnumerable<ShortJobOfferDto>> GetAllJobApplicationsAsync();
 		Task ChangeStatusOfApplicationAsync(string userId, int jobOfferId, string status);

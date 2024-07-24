@@ -17,7 +17,7 @@ namespace SpotMyJobApp.Controllers
 		}
 
 		[HttpPost("addJobOffer")]
-		public async Task<IActionResult> AddJobOffer([FromBody] EditAddJobOfferDto model)
+		public async Task<IActionResult> AddJobOffer([FromBody] AddJobOfferDto model)
 		{
 			if (model == null)
 			{
