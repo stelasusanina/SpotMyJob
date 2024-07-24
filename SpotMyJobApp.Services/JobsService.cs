@@ -17,45 +17,47 @@ namespace SpotMyJobApp.Services
 
 		public async Task<IEnumerable<ShortJobOfferDto>> FilterJobsAsync(QueryModel query)
 		{
-			var jobs = context.JobOffers.AsQueryable();
+			var jobs = await context.JobOffers
+				.Include(j => j.JobCategory)
+				.ToListAsync();
 
 			if (!string.IsNullOrEmpty(query.Category))
 			{
-				var categories = query.Category.Split(',').Select(c => c.Trim());
-				jobs = jobs.Where(j => categories.Any(category => j.JobCategory.Name.Contains(category)));
+				var categories = query.Category.Split(',').Select(c => c.Trim()).ToList();
+				jobs = jobs.Where(j => categories.Any(category => j.JobCategory.Name.Contains(category, StringComparison.OrdinalIgnoreCase))).ToList();
 			}
 
 			if (!string.IsNullOrEmpty(query.Country))
 			{
-				var countries = query.Country.Split(',').Select(c => c.Trim());
-				jobs = jobs.Where(j => countries.Any(country => j.Country.Contains(country)));
+				var countries = query.Country.Split(',').Select(c => c.Trim()).ToList();
+				jobs = jobs.Where(j => countries.Any(country => j.Country.Contains(country, StringComparison.OrdinalIgnoreCase))).ToList();
 			}
 
 			if (!string.IsNullOrEmpty(query.JobTitle))
 			{
-				jobs = jobs.Where(j => j.Title.ToLower().Contains(query.JobTitle.ToLower()));
+				jobs = jobs.Where(j => j.Title.Contains(query.JobTitle, StringComparison.OrdinalIgnoreCase)).ToList();
 			}
 
 			switch (query.OrderBy)
 			{
 				case "TitleAscending":
-					jobs = jobs.OrderBy(j => j.Title);
+					jobs = jobs.OrderBy(j => j.Title).ToList();
 					break;
 				case "TitleDescending":
-					jobs = jobs.OrderByDescending(j => j.Title);
+					jobs = jobs.OrderByDescending(j => j.Title).ToList();
 					break;
 				case "NewerDate":
-					jobs = jobs.OrderByDescending(j => j.PostedOn);
+					jobs = jobs.OrderByDescending(j => j.PostedOn).ToList();
 					break;
 				case "OlderDate":
-					jobs = jobs.OrderBy(j => j.PostedOn);
+					jobs = jobs.OrderBy(j => j.PostedOn).ToList();
 					break;
 				default:
-					jobs = jobs.OrderBy(j => j.Title);
+					jobs = jobs.OrderBy(j => j.Title).ToList();
 					break;
 			}
 
-			var filteredJobs = await jobs.Select(jo => new ShortJobOfferDto
+			var filteredJobs = jobs.Select(jo => new ShortJobOfferDto
 			{
 				Id = jo.Id,
 				Title = jo.Title,
@@ -65,7 +67,7 @@ namespace SpotMyJobApp.Services
 				CompanyImgUrl = jo.CompanyImgUrl,
 				IsFullTime = jo.IsFullTime,
 				JobCategory = jo.JobCategory.Name
-			}).ToListAsync();
+			}).ToList();
 
 			return filteredJobs;
 		}
