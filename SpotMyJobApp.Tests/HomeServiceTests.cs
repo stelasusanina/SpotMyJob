@@ -25,9 +25,9 @@ namespace SpotMyJobApp.Tests
 		{
 			var jobCategories = new List<JobCategory>
 			{
-				new JobCategory { Id = 1, Name = "IT", ImageUrl = "url1" },
-				new JobCategory { Id = 2, Name = "Finance", ImageUrl = "url2" },
-				new JobCategory { Id = 3, Name = "Marketing", ImageUrl = "url3" }
+				new JobCategory { Id = 7, Name = "IT", ImageUrl = "url1" },
+				new JobCategory { Id = 8, Name = "Finance", ImageUrl = "url2" },
+				new JobCategory { Id = 9, Name = "Marketing", ImageUrl = "url3" }
 			};
 
 			context.JobCategories.AddRange(jobCategories);

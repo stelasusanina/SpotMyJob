@@ -106,7 +106,7 @@ namespace SpotMyJobApp.Tests
 		[Fact]
 		public async Task GetUserDetailsAsync_ReturnsCorrectData()
 		{
-			var userId = "testUserId";
+			var userId = "n85do-dd-oij8-2356d";
 			var user = new ApplicationUser
 			{
 				Id = userId,
@@ -134,7 +134,7 @@ namespace SpotMyJobApp.Tests
 		[Fact]
 		public async Task GetUsersJobApplicationsAsync_ReturnsApplicationsOfTheRightUser()
 		{
-			var userId = "testUserId";
+			var userId = "4587-h6yd-47d8-543r";
 			var user = new ApplicationUser
 			{
 				Id = userId,
@@ -209,7 +209,7 @@ namespace SpotMyJobApp.Tests
 		[Fact]
 		public async Task UploadProfilePhotoAsync_UpdatesProfilePhoto()
 		{
-			var userId = "testUserId";
+			var userId = "210l-juy67-5877-f45e";
 			var user = new ApplicationUser
 			{
 				Id = userId,
